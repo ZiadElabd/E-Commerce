@@ -1,51 +1,46 @@
 <template>
-  <div class="navbar">
-    <div class="container">
-      <div>
-        <b-navbar-brand href="#"
-          ><router-link to="/home">ASKfm</router-link></b-navbar-brand
-        >
+  <nav class="navbar navbar-dark bg-primary navbar navbar-expand-lg">
+     <div class="container">
+       <ul class="categories navbar-nav  mr-auto">
+          <li class="category_item">
+            Clothing
+          </li>
+          <li class="category_item">
+            Electronics
+          </li>
+          <li class="category_item">
+            Shoes
+          </li>
+          <li class="category_item">
+            Watches
+          </li>
+          <li class="category_item">
+            Jewallery
+          </li>
+          <li class="category_item">
+            Sports
+          </li>
+          
+        </ul>
+      <div class="search">
+          <form class="form-inline my-2 my-lg-0 navbar-nav">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+          </form>
       </div>
-      <div>
-        <b-nav>
-          <b-nav-item active>
-            <router-link to="/home"
-              ><font-awesome-icon icon="home" /></router-link
-          ></b-nav-item>
-          <b-nav-item
-            ><router-link to="/Questions"
-              ><font-awesome-icon icon="question-circle" /></router-link
-          ></b-nav-item>
-          <b-nav-item
-            ><router-link
-              :to="{ name: 'profile', params: { userName: this.userName } }"
-            >
-              <b-avatar
-                :src="decodeImage(userImage)"
-                size="1.5rem"
-              ></b-avatar></router-link
-          ></b-nav-item>
-          <b-nav-item
-            ><router-link to="/Friends"
-              ><font-awesome-icon icon="user-friends" /></router-link
-          ></b-nav-item>
-          <b-nav-item
-            ><router-link to="/Notifications"
-              ><font-awesome-icon icon="bolt" /></router-link
-          ></b-nav-item>
 
-          <b-nav-item-dropdown right>
-            <!-- Using 'button-content' slot -->
+      <div class="setting">
+          <b-dropdown>
             <template #button-content>
-              <em><font-awesome-icon icon="cog" /></em>
+                  <em><font-awesome-icon icon="cog" /></em>
             </template>
             <b-dropdown-item to="/Settings">Settings</b-dropdown-item>
-            <b-dropdown-item  @click.native="reset" to="/">Log Out</b-dropdown-item>
-          </b-nav-item-dropdown>
-        </b-nav>
+                <b-dropdown-item  @click.native="reset" to="/">Log Out</b-dropdown-item>
+          </b-dropdown>
       </div>
-    </div>
-  </div>
+     </div>
+
+  </nav>
 </template>
 <script>
 export default {
@@ -115,6 +110,39 @@ div > .navbar-brand {
   font-size: 97.5%;
 }
 .container {
-  width: 60%;
+  width: 80%;
+}
+.categories li{
+  display: block;
+  padding: 0 10px;
+  color: #FFF;
+  cursor: pointer;
+  margin: 0 10px;
+}
+.search button{
+  color: #FFF;
+  border: 1px solid #FFF;
+  width: 150px;
+  margin-left: 10px;
+}
+
+.btn-secondary {
+    color: #FFF;
+    background-color: inherit;
+    border-color: none;
+}
+.btn-secondary:hover {
+    color: #FFF;
+    background-color: inherit;
+    border-color: none;
+}
+.btn-check:active+.btn-secondary, .btn-check:checked+.btn-secondary, .btn-secondary.active, .btn-secondary:active, .show>.btn-secondary.dropdown-toggle {
+    color: #fff;
+    background-color: inherit;
+    border-color: none;
+}
+nav{
+  display: flex;
+  justify-content: space-between;
 }
 </style>

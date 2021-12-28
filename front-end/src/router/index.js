@@ -10,8 +10,8 @@ import AnsweredQuestion from '../views/AnsweredQuestion.vue'
 import SignIn from '../components/SignIn.vue'
 import SignUp from '../components/SignUp.vue'
 import profile from '../views/profile.vue'
-
-
+import ChangePassword from '../components/ChangePassword.vue'
+import Products from '../components/Products.vue'
 
 Vue.use(VueRouter)
 
@@ -23,9 +23,19 @@ const routes = [
     component: SignIn
   },
   {
+    path: '/Products',
+    name: 'Products',
+    component: Products
+  },
+  {
     path: '/signup',
     name: 'SignUp',
     component: SignUp
+  },
+  {
+    path: '/ChangePassword',
+    name: 'ChangePassword',
+    component: ChangePassword
   },
   {
     path: '/Friends',

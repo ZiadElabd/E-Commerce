@@ -23,23 +23,6 @@
             />
           </div>
           <div class="mb-3">
-            <label for="location" class="form-label">Location</label>
-            <input
-              type="text"
-              class="form-control"
-              id="location"
-              v-model="allSettings.location"
-            />
-          </div>
-          <div class="question_form mb-3">
-            <label for="bio" class="form-label">Bio</label>
-            <textarea
-              class="form-control"
-              aria-label="With textarea"
-              rows="3"
-              id="bio"
-              v-model="allSettings.bio"
-            ></textarea>
           </div>
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
@@ -52,27 +35,25 @@
             />
           </div>
           <div class="mb-3">
-            <div class="form-group">
-              <label>Birth Date</label> <br />
-              <el-date-picker
-                v-model="allSettings.birthDate"
-                type="date"
-                placeholder="Pick a date"
-              >
-              </el-date-picker>
-              {{ allSettings.birthDate }}
-            </div>
+            <label for="address" class="form-label">Address</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fullname"
+              v-model="allSettings.address"
+            />
           </div>
-          <div class="mb-3 paddingwithborder">
-            <label for="gender">Gender</label> <br />
-            <select v-model="allSettings.gender">
-              <option value="Male">Male</option>
-              <option value="Memale" selected>Female</option>
-            </select>
-            {{ allSettings.gender }}
+          <div class="mb-3">
+            <label for="Phone" class="form-label">Phone</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fullname"
+              v-model="allSettings.Phone"
+            />
           </div>
 
-          <div class="changeprofile paddingwithborder">
+          <!-- <div class="changeprofile paddingwithborder">
             <label>photo</label> <br />
             <b-avatar :src="profileURL"></b-avatar>
             <input
@@ -96,10 +77,15 @@
             <span @click="$refs.fileinput1.click()"
               >Upload your background</span
             >
-          </div>
+          </div> -->
           <div class="save_and_cancel">
-            <button type="button" class="btn btn-danger"  @click.prevent="saveSetting">Save</button>
+           <div>
+              <button type="button" class="btn btn-primary"  @click.prevent="saveSetting">Save</button>
             <button type="button" class="btn btn-outline-dark">Cancel</button>
+           </div>
+           <div>
+              <router-link to="/ChangePassword">Change Password</router-link>
+           </div>
           </div>
         </form>
       </div>
@@ -126,10 +112,8 @@ export default {
       allSettings: {
         firstName:"",
         lastName:"", 
-        location: "",
-        bio: "",
-        birthDate: "",
-        gender: "Male",
+        address: "",
+        Phone: ""
       },
     };
   },
@@ -272,9 +256,14 @@ select {
 }
 .save_and_cancel {
   margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
 }
 .save_and_cancel button {
   margin-right: 20px;
   min-width: 100px;
+}
+.save_and_cancel a {
+  display: block;
 }
 </style>

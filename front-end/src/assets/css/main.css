@@ -114,7 +114,7 @@
     transition: none;
     color: #222222;
   }
- .signin , .signUp
+ .signin , .signUp , .changePassword
  {
      display: block;
      background-color: #FFF;

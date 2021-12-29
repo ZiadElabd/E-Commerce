@@ -15,7 +15,7 @@
                 <input type="password" v-model="form.password" class="form-control form-control-lg shadow-none" placeholder="password" />
             </div>
             <div class="form-group ">
-                 <b-button variant="primary" @click.prevent="login" class="btn  btn-lg btn-full "> Log in </b-button>
+                 <b-button variant="primary" @click.prevent="SignIn" class="btn  btn-lg btn-full "> Log in </b-button>
                  <b-button variant="light" class="btn  btn-lg btn-full "><router-link to="/signup">Sign Up</router-link></b-button>
         </div>
         </form>
@@ -32,16 +32,16 @@
                 form:{
                     userName:'',
                     password:'',
-                },
-                checkState: false,
+                }
             }
         },
         methods:{
             parseJSON: function (resp) {
                 return resp.text();
             },
-            checkStatus1: function (resp) {
+            checkStatus: function (resp) {
                 console.log('status');
+                console.log(resp);
                 if (resp.status >= 200 && resp.status < 300) {
                     console.log('good status');
                     return resp;
@@ -53,27 +53,46 @@
             },
             async login(){
                 try {
-                    const response = await fetch( "http://localhost:5050/signin/" , {
-                        method: "post" , 
+                    const response = await fetch( "http://localhost:8080/signin/" , {
+                        method: "post",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(this.form)
-                    }).then(this.checkStatus1)
-                    .then(this.parseJSON)
-                    // console.log('ziad');
-                    // console.log(response);
-                    this.$store.commit('saveUserData',{
-                        _id: response,
-                        _name: this.form.userName
-                    });
-                    console.log(this.$store.state.userID);
-                    this.$store.dispatch("getImage");
-                    this.$router.push({ name: "Home" });
-                } catch (error) {
-                    alert('error');
-                } 
-            
-            },
+                    }).then(this.checkStatus)
+                    .then(this.parseJSON);
 
+                    //console.log(response);
+                    let p = JSON.parse(response);
+                    console.log(p.role + " "  + p.sessionID);
+
+                    this.$store.commit('saveUserData',{
+                        _id: p.sessionID,
+                        _name: this.form.userName,
+                        _role: p.role
+                    });
+                    console.log("vvvvvvvv");
+                    console.log("user name that stored in the Vuex" + this.$store.state.userID);
+                    return {
+                        valid: true,
+                        role: p.role
+                    };
+                } catch (error) {
+                    return {
+                        valid: false,
+                        role: null
+                    };
+                } 
+            },
+            async SignIn(){
+                const state = await this.login();
+                if (state.valid) {
+                    if(state.role)
+                        this.$router.push({ name: "AdminSettings" });
+                    else
+                        this.$router.push({ name: "Home" });
+                } else {
+                    alert("Please try agian, email or password is wrong :(");
+                }
+            },
         }
     }
 </script>

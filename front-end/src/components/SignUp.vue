@@ -39,7 +39,7 @@
             </div>
 
             <div class="form-group ">
-                 <b-button variant="primary" @click.prevent="create_new_account" class="btn  btn-lg btn-full "> Sign Up </b-button>
+                 <b-button variant="primary" @click.prevent="SignUp" class="btn  btn-lg btn-full "> Sign Up </b-button>
             </div>
         </form>
             
@@ -57,74 +57,69 @@
                     firstName:'',
                     lastName:'',
                     username:'',
-                    email:'',
                     password:'',
                     address:'',
                     phone:'',
-                    
                 },
             }
         },
         methods:{
-            parseJSON: function (resp) {
-                console.log(resp);
-                console.log(resp.text());
-                return resp.text() ? resp.text() : resp;
+            parseText: function (resp) {
+                return resp.text();
             },
             checkStatus: function (resp) {
-                // console.log('status');
-                // console.log(resp);
-                // console.log(resp.status);
+                console.log(resp);
                 if (resp.status >= 200 && resp.status < 300) {
                     console.log('good status');
-                    return true;
+                    return resp;
                 }
                 console.log('bad status');
-                return false;
-            },
-
-            check_password() {
-                return this.user.password === this.user.confirmPassword;
-            },
-
-            async check_email(email){
-                const response = await fetch("http://localhost:5050/checkUsername/" + email,{ 
-                    method: "get" ,
-                    headers: {'Content-Type': 'application/json'}
+                return this.parseJSON(resp).then((resp) => {
+                    throw resp;
                 });
-                // console.log(response.status);
-                // console.log('return of check function ' + this.checkStatus(response));
-                return this.checkStatus(response);
             },
-            async create_new_account(){
-                if( ! this.check_password ){
-                    alert("please make sure that the two passwords match");
-                    return;
+            CheckNames(){
+                return this.user.firstName.length > 0 && this.user.lastName.length > 0
+            },
+            async CheckUserName(){
+                try{
+                    const response = await fetch("http://localhost:8080/checkUsername/" + this.user.userName,{ 
+                        method: "get",
+                        headers: {'Content-Type': 'application/json'}
+                    }).then(this.checkStatus)
+                    .then(this.parseText);
+                    console.log("response of check userName: " + response);
+                    return response;
+                }catch(error){
+                    return false;
                 }
-                if(this.user.password == '')
-                {
-                    alert("Please, Enter your password");
-                     return;
+            },
+            CheckPassword(){
+                return this.user.password === this.confirmPassword;
+            },
+            async SignUp(){
+                if(this.CheckNames() && await this.CheckUserName() && this.CheckPassword()){
+                    console.log("sending sign up request");
+                    const response = await fetch("http://localhost:8080/signup", {
+                        method: "post",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(this.user),
+                    }).then(this.checkStatus)
+                    .then(this.parseText)
+
+                    if(response){
+                        alert("Signed up seccessfully");
+                        this.$router.push({ name: "SignIn" });
+                    }else{
+                        alert("Failed to SignUp");
+                    }
+                }else{
+                    if(!this.CheckNames()){
+                        alert("Invalid First Name or Last Name");
+                    }else if(!this.CheckPassword()){
+                        alert("Please, Enter a Valid Password with a length of 8");
+                    }
                 }
-                const valid = await this.check_email(this.user.username);
-                //console.log("vvvvvv");
-                console.log("valid " + valid);
-                if( ! valid ){
-                    alert("there is an account with the userName");
-                    return;
-                }
-                //console.log("check userName = true");
-                fetch("http://localhost:5050/signup", {
-                    method: "post",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(this.user),
-                }).then((response) => {
-                    return response.text();
-                }).then((data) => {
-                    console.log("signup =  " +  data);
-                });
-                alert("Signed up seccessfully");
-                this.$router.push({ name: "SignIn" });
             },
         }
     }

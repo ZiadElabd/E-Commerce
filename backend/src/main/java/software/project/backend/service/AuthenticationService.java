@@ -28,7 +28,7 @@ public class AuthenticationService {
         return userDAO.insertUser(user);
     }
     public boolean checkUserName(String userName){
-        return !userDAO.findByUserName(userName);
+        return !userDAO.isUserNameExist(userName);
     }
     public JSONObject signIn(String dataSent){
         String userName;

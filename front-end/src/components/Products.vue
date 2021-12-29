@@ -14,7 +14,7 @@
                     <h4 class="box-title">box title or name </h4>  
                     <div class="box-heading text-uppercase">Category</div>
                     <div class="box-btns">
-                        <a class="btn btn-primary text-uppercase">view</a>
+                        <a @click="test" class="btn btn-primary text-uppercase">view</a>
                     </div>
                     <div class="box-id">002</div>
                     </div>
@@ -134,6 +134,21 @@ export default {
   name: "Products",
   components: {
     Navbar,
+  },
+  data() {
+    return {
+
+    };
+  },
+  computed: {
+    categoryName(){
+      return this.$route.params.category;
+    }
+  },
+  methods: {
+    test(){
+        console.log(this.categoryName);
+    }
   },
 };
 </script>

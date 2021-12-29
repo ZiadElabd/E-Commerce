@@ -14,12 +14,16 @@ public class Commands {
 
 
     public static String SELECT_BY_USERNAME(){
-        return "SELECT * FROM USER WHERE userName = ? ";
+        return "SELECT COUNT(*) FROM USER WHERE userName = ? ";
     }
 
 
     public static String SELECT_BY_USER_PASS(){
         return "SELECT * FROM USER WHERE userName = ? AND password = ?";
+    }
+
+    public static String DELETE_ALL_CUSTOMERS(){
+        return "DELETE FROM USER WHERE role != 1; ";
     }
 
     public static String INSERT_PRODUCT(){

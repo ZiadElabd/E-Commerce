@@ -17,25 +17,11 @@ public class UserDAO {
 	private final String SQL_INSERT_USER = "INSERT INTO USER (userName,password,firstName,lastName,Address,Phone,role) VALUES (?,?,?,?,?,?,?)";
 	private final String SQL_SELECT_BY_USERNAME = "SELECT * FROM USER WHERE userName=?";
 	private final String SQL_SELECT_BY_USER_PASS = "SELECT * FROM USER WHERE userName=? AND password=?";
-	private final String SQL_GET_ALL = "select * from people";
-	private final String SQL_INSERT_PERSON = "insert into people(id, first_name, last_name, age) values(?,?,?,?)";
-	private final String SQL_FIND_USER = "select * from user where userName = ?";
-	 private JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+	private JdbcTemplate jdbcTemplate = new JdbcTemplate(Source.getDataSource());
 	 
-	 public UserDAO() {
-	 }
-	 @Bean
-	 @Primary
-	 public static DataSource dataSource() {
-		 return DataSourceBuilder
-				 .create()
-				 .username("sql4460814")
-				 .password("Ruwqt9etyE")
-				 .url("jdbc:mysql://sql4.freemysqlhosting.net:3306/sql4460814")
-				 .driverClassName("com.mysql.cj.jdbc.Driver")
-				 .build();
-	 }
-	
+	 public UserDAO() { }
+
+
 
 	public boolean insertUser(User user) {
 
@@ -46,14 +32,21 @@ public class UserDAO {
 				" "+user.getAddress()+
 				" "+user.getPhone()
 		);
-	        int result = jdbcTemplate.update(SQL_INSERT_USER,user.getUserName(),user.getPassword(),user.getFirstName(),user.getLastName(),user.getAddress(),user.getPhone(),user.getRole());
+		int result = jdbcTemplate.update(SQL_INSERT_USER,
+				user.getUserName(),
+				user.getPassword(),
+				user.getFirstName(),
+				user.getLastName(),
+				user.getAddress(),
+				user.getPhone(),
+				user.getRole());
 	         
-	        if (result > 0) {
-	            System.out.println("A new row has been inserted.");
-	            return true ;
-		        }
-	        return false ;
+		if (result > 0) {
+			System.out.println("A new row has been inserted.");
+			return true ;
 		}
+		return false ;
+	 }
 	
 	public boolean findByUserName(String u) {
 	    try {

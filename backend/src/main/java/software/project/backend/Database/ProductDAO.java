@@ -1,8 +1,12 @@
 package software.project.backend.Database;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import software.project.backend.Model.Product;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDAO {
 
@@ -46,6 +50,12 @@ public class ProductDAO {
             return true ;
 		}
         return false ;
+	}
+
+	public List<Product> getProductByCategory(String categoryName) {
+		List<Product> products = jdbcTemplate.query(Commands.GET_ALL_PRODUCTS(),
+				new BeanPropertyRowMapper(Product.class));
+		return products;
 	}
 
 	public boolean deleteProduct(String name) {

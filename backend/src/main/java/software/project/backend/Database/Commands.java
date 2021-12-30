@@ -22,6 +22,10 @@ public class Commands {
         return "SELECT * FROM USER WHERE userName = ? AND password = ?";
     }
 
+    public static String CHANGE_PASSWORD(){
+        return "UPDATE USER SET password = ? WHERE userName = ?";
+    }
+
     public static String DELETE_ALL_CUSTOMERS(){
         return "DELETE FROM USER WHERE role != 1; ";
     }
@@ -36,6 +40,10 @@ public class Commands {
         return "UPDATE PRODUCT " +
                 "SET name = ?, description = ?, price = ?, discount = ? " +
                 "WHERE productId = ?";
+    }
+
+    public static String GET_ALL_PRODUCTS(){
+        return "SELECT * FROM PRODUCT" ;
     }
 
     public static String DELETE_PRODUCT(){

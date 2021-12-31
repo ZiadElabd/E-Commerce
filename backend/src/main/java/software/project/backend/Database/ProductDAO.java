@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import software.project.backend.Model.Product;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAO {
@@ -33,8 +32,8 @@ public class ProductDAO {
 		}
 		return false ;
 	}
-	
-	public boolean updateProduct(Product p) {
+
+	public boolean updateProduct(Product p, String productId) {
 
 		int result = jdbcTemplate.update(Commands.UPDATE_PRODUCT(),
 				p.getCategoryName(),
@@ -43,16 +42,29 @@ public class ProductDAO {
 				p.getPrice() ,
 				p.getQuantity(),
 				p.getDiscount(),
-				null,
-				p.getProductId());
+				p.getImage(),
+				productId);
 		if (result > 0) {
-            System.out.println("A new row has been updated.");
-            return true ;
+			System.out.println("A new row has been updated.");
+			return true ;
 		}
-        return false ;
+		return false ;
+	}
+
+	public Product getProductByID(String ID) {
+		Product product = (Product) jdbcTemplate.queryForObject(Commands.GET_PRODUCT_BY_ID(),
+				new BeanPropertyRowMapper(Product.class), ID);
+		return product;
 	}
 
 	public List<Product> getProductByCategory(String categoryName) {
+		List<Product> products = jdbcTemplate.query(Commands.GET_PRODUCTS_BY_CATEGORY(),
+				new BeanPropertyRowMapper(Product.class),
+				categoryName);
+		return products;
+	}
+
+	public List<Product> getAllProduct() {
 		List<Product> products = jdbcTemplate.query(Commands.GET_ALL_PRODUCTS(),
 				new BeanPropertyRowMapper(Product.class));
 		return products;

@@ -38,8 +38,17 @@ public class Commands {
 
     public static String UPDATE_PRODUCT(){
         return "UPDATE PRODUCT " +
-                "SET name = ?, description = ?, price = ?, discount = ? " +
+                "SET CategoryName = ?, name = ?, description = ?, price = ?, quantity = ?, discount = ?, image = ?" +
                 "WHERE productId = ?";
+    }
+
+
+    public static String GET_PRODUCT_BY_ID(){
+        return "SELECT * FROM PRODUCT WHERE productId = ?" ;
+    }
+
+    public static String GET_PRODUCTS_BY_CATEGORY(){
+        return "SELECT * FROM PRODUCT where CategoryName = ?" ;
     }
 
     public static String GET_ALL_PRODUCTS(){

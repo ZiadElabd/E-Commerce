@@ -9,11 +9,16 @@ import ChangePassword from '../components/ChangePassword.vue'
 import Products from '../components/Products.vue'
 import displayProduct from '../components/displayProduct.vue'
 import newProduct from '../components/newProduct.vue'
+import Cart from '../views/Cart.vue'
 
 
 
 Vue.use(VueRouter)
-
+Vue.use({
+  install: function(Vue, options){
+      Vue.prototype.$jQuery = require('jquery'); // you'll have this.$jQuery anywhere in your vue project
+      }
+  });
 const routes = [
   
   {
@@ -25,6 +30,11 @@ const routes = [
     path: '/Products/:category',
     name: 'Products',
     component: Products
+  },
+  {
+    path: '/Cart',
+    name: 'Cart',
+    component: Cart
   },
   {
     path: '/newProduct',

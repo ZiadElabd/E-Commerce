@@ -1,14 +1,12 @@
-Drop schema if exists Store ;
-Create Schema Store;
-Use Store;
+Use sql4460814;
 
 CREATE TABLE USER (
     userId INTEGER AUTO_INCREMENT NOT NULL,
     userName VARCHAR(30) NOT NULL,
-    password VARCHAR(30) NOT NULL,
+    password VARCHAR(150) NOT NULL,
     firstName VARCHAR(30) NOT NULL,
     lastName VARCHAR(30) NOT NULL,
-    address VARCHAR(30) NOT NULL,
+    address VARCHAR(150) NOT NULL,
     phone CHAR(12),
     role TINYINT(1),
     PRIMARY KEY (userId)
@@ -28,12 +26,26 @@ CREATE TABLE PRODUCT (
     price VARCHAR(30) NOT NULL,
     quantity VARCHAR(30) NOT NULL,
     discount CHAR(12),
-    image LONG,
+    image LONGTEXT,
     PRIMARY KEY (productId),
     FOREIGN KEY (categoryName)
         REFERENCES CATEGORY (categoryName)
         ON UPDATE CASCADE
         ON DELETE CASCADE 
+);
+
+CREATE TABLE CART (
+	userId INT NOT NULL,
+	productId INT NOT NULL,
+	PRIMARY KEY (userId, productId),
+	FOREIGN KEY (userId)
+		REFERENCES USER (userId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	FOREIGN KEY (productId)
+		REFERENCES PRODUCT (productId)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
 );
             
 INSERT INTO CATEGORY 

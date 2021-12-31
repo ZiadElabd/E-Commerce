@@ -2,123 +2,37 @@
 
 <div class="products">
        <Navbar />
-    
+    <div class="add">
+       <router-link to="/newProduct"> <span>+</span></router-link>
+     
+    </div>
+     <!-- <div class="search">
+          <form class="form-inline my-2 my-lg-0 ">
+            <input class="form-control mr-sm-2" 
+            type="search"
+             v-model="searchValue"
+              @keyup="filter"
+              placeholder="Search using Product name "
+               aria-label="Search">
+          </form>
+      </div> -->
   <div class="container">
         <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-3" v-for="product in products" :key="product.productId">
                     <div class="box-container"> 
                     <div class="box-img"> 
                         <img src="../assets/market.jpg" />
-                        <div class="box-price">$12345</div>
+                        <div class="box-price">${{product.price}}</div>
                     </div>
-                    <h4 class="box-title">box title or name </h4>  
-                    <div class="box-heading text-uppercase">Category</div>
+                    <h4 class="box-title">{{product.name}}</h4>  
+                    <div class="box-heading text-uppercase">{{product.categoryName}}</div>
                     <div class="box-btns">
-                        <a @click="test" class="btn btn-primary text-uppercase">view</a>
+                        <a @click="view" class="btn btn-primary text-uppercase">view</a>
                     </div>
-                    <div class="box-id">002</div>
+                    <div class="box-id">{{product.id}}</div>
                     </div>
                 </div> 
-                <div class="col-sm-3">
-                    <div class="box-container"> 
-                    <div class="box-img"> 
-                        <img src="../assets/market.jpg" />
-                        <div class="box-price">$12345</div>
-                    </div>
-                    <h4 class="box-title">box title or name </h4>  
-                    <div class="box-heading text-uppercase">Category</div>
-                    <div class="box-btns">
-                        <a class="btn btn-primary text-uppercase">view</a>
-                    </div>
-                    <div class="box-id">002</div>
-                    </div>
-                </div> 
-                <div class="col-sm-3">
-                    <div class="box-container"> 
-                    <div class="box-img"> 
-                        <img src="../assets/market.jpg" />
-                        <div class="box-price">$12345</div>
-                    </div>
-                    <h4 class="box-title">box title or name </h4>  
-                    <div class="box-heading text-uppercase">Category</div>
-                    <div class="box-btns">
-                        <a class="btn btn-primary text-uppercase">view</a>
-                    </div>
-                    <div class="box-id">002</div>
-                    </div>
-                </div> 
-                <div class="col-sm-3">
-                    <div class="box-container"> 
-                    <div class="box-img"> 
-                        <img src="../assets/market.jpg" />
-                        <div class="box-price">$12345</div>
-                    </div>
-                    <h4 class="box-title">box title or name </h4>  
-                    <div class="box-heading text-uppercase">Category</div>
-                    <div class="box-btns">
-                        <a class="btn btn-primary text-uppercase">view</a>
-                    </div>
-                    <div class="box-id">002</div>
-                    </div>
-                </div> 
-                <div class="col-sm-3">
-                    <div class="box-container"> 
-                    <div class="box-img"> 
-                        <img src="../assets/market.jpg" />
-                        <div class="box-price">$12345</div>
-                    </div>
-                    <h4 class="box-title">box title or name </h4>  
-                    <div class="box-heading text-uppercase">Category</div>
-                    <div class="box-btns">
-                        <a class="btn btn-primary text-uppercase">view</a>
-                    </div>
-                    <div class="box-id">002</div>
-                    </div>
-                </div> 
-                <div class="col-sm-3">
-                    <div class="box-container"> 
-                    <div class="box-img"> 
-                        <img src="../assets/market.jpg" />
-                        <div class="box-price">$12345</div>
-                    </div>
-                    <h4 class="box-title">box title or name </h4>  
-                    <div class="box-heading text-uppercase">Category</div>
-                    <div class="box-btns">
-                        <a class="btn btn-primary text-uppercase">view</a>
-                    </div>
-                    <div class="box-id">003</div>
-                    </div>
-                </div> 
-                
-                <div class="col-sm-3">
-                    <div class="box-container"> 
-                    <div class="box-img"> 
-                        <img src="../assets/market.jpg" />
-                        <div class="box-price">$12345</div>
-                    </div>
-                    <h4 class="box-title">box title or name </h4>  
-                    <div class="box-heading text-uppercase">Category</div>
-                    <div class="box-btns">
-                        <a class="btn btn-primary text-uppercase">view</a>
-                    </div>
-                    <div class="box-id">004</div>
-                    </div>
-                </div> 
-                
-                <div class="col-sm-3">
-                    <div class="box-container"> 
-                    <div class="box-img"> 
-                        <img src="../assets/market.jpg" />
-                        <div class="box-price">$12345</div>
-                    </div>
-                    <h4 class="box-title">box title or name </h4>  
-                    <div class="box-heading text-uppercase">Category</div>
-                    <div class="box-btns">
-                        <a class="btn btn-primary text-uppercase">view</a>
-                    </div>
-                    <div class="box-id">001</div>
-                    </div>
-                </div>  
+               
         </div>
   </div>
 
@@ -136,23 +50,53 @@ export default {
     Navbar,
   },
   data() {
-    return {
-
-    };
+     return{
+       searchValue:'',
+        products:[
+       {
+         productId: 1 ,
+         categoryName: 'Clothing',
+         name: 'T-shirt',
+         price: 123 ,
+         image: '../assets/market.jpg'
+       },
+       {
+         productId: 2 ,
+         categoryName: 'Clothing',
+         name: 'T-arvt',
+         price: 123 ,
+         image: '../assets/market.jpg'
+       },
+     ],
+     }
   },
   computed: {
+    //  filteredList() {
+    //   return this.products.filter(p => {
+    //     return p.name.toLowerCase().includes(this.searchValue.toLowerCase())
+    //   })
+    // },
     categoryName(){
       return this.$route.params.category;
     }
   },
   methods: {
+     filter(){
+       this.filtered = this.filteredList ;
+       console.log(this.filtered);
+       console.log(this.filteredList);
+     },
     test(){
         console.log(this.categoryName);
     }
   },
+  
 };
 </script>
 <style scoped>
+.container{
+  width: 80%;
+}
 .box-container {
   text-align: center;
   width: 100%;
@@ -200,4 +144,33 @@ export default {
   display: block;
   max-width: 100%;
 }
+.add{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #3498db;
+  color: #FFF;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  z-index: 10;
+  text-align: center;
+  font: 900;
+  font-size: 40px;
+  cursor: pointer;
+}
+.add span{
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 15px;
+}
+a{
+  text-decoration: none;
+  color: #FFF;
+}
+.search{
+  margin-top: 53px;
+}
+
 </style>

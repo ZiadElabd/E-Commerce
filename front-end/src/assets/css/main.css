@@ -187,3 +187,11 @@
   margin-top: 60px;
   padding-top: 15px;
 }
+.btn-secondary {
+  color: #FFF;
+  background-color: inherit;
+  border-color: inherit;
+}
+nav .btn {
+  border: 0;
+}

@@ -22,12 +22,7 @@
           </li>
           
         </ul>
-      <div class="search">
-          <form class="form-inline my-2 my-lg-0 navbar-nav">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-          </form>
-      </div>
+     
 
       <div class="setting">
           <b-dropdown>
@@ -119,30 +114,19 @@ div > .navbar-brand {
   cursor: pointer;
   margin: 0 10px;
 }
-.search button{
-  color: #FFF;
-  border: 1px solid #FFF;
-  width: 150px;
-  margin-left: 10px;
-}
 
-.btn-secondary {
-    color: #FFF;
-    background-color: inherit;
-    border-color: none;
-}
-.btn-secondary:hover {
-    color: #FFF;
-    background-color: inherit;
-    border-color: none;
-}
+
+
+
 .btn-check:active+.btn-secondary, .btn-check:checked+.btn-secondary, .btn-secondary.active, .btn-secondary:active, .show>.btn-secondary.dropdown-toggle {
     color: #fff;
     background-color: inherit;
-    border-color: none;
+    border: none;
+    outline: none;
 }
 nav{
   display: flex;
   justify-content: space-between;
 }
+
 </style>

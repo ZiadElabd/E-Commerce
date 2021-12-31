@@ -9,7 +9,7 @@
             <input
               type="text"
               class="form-control"
-              id="fullname"
+              id="firstname"
               v-model="allSettings.firstName"
             />
           </div>
@@ -18,19 +18,18 @@
             <input
               type="text"
               class="form-control"
-              id="fullname"
+              id="lastname"
               v-model="allSettings.lastName"
             />
           </div>
-          <div class="mb-3">
-          </div>
+         
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <input
               type="text"
               class="form-control"
               id="username"
-              :value="settings.userName"
+               v-model="allSettings.userName"
               disabled
             />
           </div>
@@ -39,16 +38,20 @@
             <input
               type="text"
               class="form-control"
-              id="fullname"
+              id="address"
               v-model="allSettings.address"
             />
           </div>
+
+
+
+
           <div class="mb-3">
             <label for="Phone" class="form-label">Phone</label>
             <input
               type="text"
               class="form-control"
-              id="fullname"
+              id="Phone"
               v-model="allSettings.Phone"
             />
           </div>
@@ -113,7 +116,8 @@ export default {
         firstName:"",
         lastName:"", 
         address: "",
-        Phone: ""
+        Phone: "",
+        userName: "jhdjikd"
       },
     };
   },
@@ -222,13 +226,15 @@ export default {
 </script>
 <style scoped>
 .Settings {
-  background-color: #fff;
-  width: 100%;
+  background-color: #DDD;
   border-radius: 10px;
   padding: 20px;
+  top: 50px;
+  position: absolute;
+  width: 40%;
 }
 .container {
-  width: 40%;
+  width: 45%;
 }
 select {
   margin: 10px 20px 0 0;

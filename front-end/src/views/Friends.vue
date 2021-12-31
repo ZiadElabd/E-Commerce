@@ -123,6 +123,7 @@ export default {
     this.$store.dispatch("getUsers");
     this.$store.dispatch("getFollowers");
   },
+ 
 };
 </script>
 <style scoped>

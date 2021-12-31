@@ -60,4 +60,15 @@ public class UserDAO_Test {
         assertNull(user.getPassword());
     }
 
+    @Test
+    void changePasswordTest1() {
+        String userName = "ziadElabd";
+        String password = passwordOPS.passswordToHash("123456");
+        assertTrue(userDAO.changePassword(userName, password));
+        User user = userDAO.checkSignIn(userName, password);
+        assertFalse(user.getRole());
+        assertNull(user.getUserName());
+        assertNull(user.getPassword());
+    }
+
 }

@@ -30,10 +30,6 @@ public class UserDAO {
 		}
 		return false ;
 	 }
-	
-	public boolean findByUserName(String u) {
-	    return true;
-	}
 
 	public boolean isUserNameExist(String userName) {
 		try {
@@ -57,6 +53,16 @@ public class UserDAO {
 	    } catch (IncorrectResultSizeDataAccessException e) {
 			return null;
 	    }
+	}
+
+	public boolean changePassword(String userName,String password){
+		int result = jdbcTemplate.update(Commands.CHANGE_PASSWORD(), password, userName);
+
+		if (result > 0) {
+			System.out.println("Password is changed");
+			return true ;
+		}
+		return false ;
 	}
 
 	public boolean deleteAllCustomers(){

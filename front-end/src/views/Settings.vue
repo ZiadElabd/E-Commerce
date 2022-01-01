@@ -54,7 +54,50 @@
             />
           </div>
 
-         
+          <div id="contacts">
+  <table>
+    <thead>
+      <tr>
+        <th class="sort" data-sort="name">Admins</th>        
+      </tr>
+    </thead>
+    <tbody class="list">
+      <tr>
+        <td class="id" style="display:none;">1</td>
+        <td class="name">Jonny</td>
+        <td class="remove"><i class="fa fa-trash" aria-hidden="true"></i></td>
+      </tr>
+      <tr>
+        <td class="id" style="display:none;">2</td>
+        <td class="name">Jonas</td>
+    
+        <td class="remove"><i class="fa fa-trash" aria-hidden="true"></i></td>
+      </tr>
+      <tr>
+        <td class="id" style="display:none;">3</td>
+        <td class="name">Gustaf</td>
+      
+        <td class="remove"><i class="fa fa-trash" aria-hidden="true"></i></td>
+      </tr>
+      
+    </tbody>
+  </table>
+  <table>
+    <td class="name">
+     <input
+              type="text"
+              class="form-control"
+              id="address"
+              v-model="allSettings.address"
+            />
+    </td>
+    <td class="add">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+    </td>
+  </table>
+  
+ 
+</div>
           <div class="save_and_cancel">
            <div>
               <button type="button" class="btn btn-primary"  @click.prevent="saveSetting">Save</button>
@@ -67,6 +110,7 @@
         </form>
       </div>
     </div>
+    
   </div>
 </template>
 
@@ -74,6 +118,7 @@
 import Navbar from "../components/nbar.vue";
 export default {
   name: "Settings",
+  isAdmin: true ,
   components: {
     Navbar,
   },
@@ -246,4 +291,8 @@ select {
 .save_and_cancel a {
   display: block;
 }
+i{
+  cursor: pointer;
+}
+
 </style>

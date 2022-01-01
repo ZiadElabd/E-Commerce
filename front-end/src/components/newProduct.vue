@@ -3,19 +3,69 @@
           <Navbar />
         <div class="product">
             <div class="photo">
-                
                 <img :src="profileURL" alt="">
             </div>
             <div class="description">
+                
+                <form>
+                  <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="name"
+                      v-model="product.name"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="description"
+                      v-model="product.description"
+                    />
+                  </div>
+                   <div class="mb-3">
+                      <label class="form-label">Category</label>
+                     <select class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Shoes">Shoes</option>
+                        <option value="Watches">Watches</option>
+                        <option value="Jewallery">Jewallery</option>
+                        <option value="Sports">Sports</option>
+                      </select>
+                   </div>
+                    <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="price"
+                      v-model="product.price"
+                    />
+                  </div>
+                   <div class="mb-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="quantity"
+                      v-model="product.quantity"
+                    />
+                  </div>
+                </form>
                 <div class="changeprofile ">
-            <input
-              type="file"
-              @change="onprofileselected"
-              style="display:none"
-              ref="fileinput"
-            />
-            <span @click="$refs.fileinput.click()">Change Product</span>
-          </div>
+                      <input
+                        type="file"
+                        @change="onprofileselected"
+                        style="display:none"
+                        ref="fileinput"
+                      />
+                      <span @click="$refs.fileinput.click()"> Product photo</span>
+                </div>
             </div>
 
             
@@ -32,27 +82,26 @@ export default {
     return {
       selectedfile: "",
       profileURL: "",
-      coverURL: "",
       profilePhoto:'',
-      coverPhoto:'',
       profileSelected: false,
-      coverSelected: false,
-      allSettings: {
-        firstName:"",
-        lastName:"", 
-        address: "",
-        Phone: ""
-      },
+      
+      product: {
+        name:"",
+        description:"",
+        price:"",
+        quantity:"",
+        profile:""
+      }
     };
   },
     methods:{
          onprofileselected: function(event) {
             this.profileSelected = true;
-            this.allSettings.profile = event.target.files[0];
+            this.product.profile = event.target.files[0];
             let fd = new FormData();
-            fd.append("image", this.allSettings.profile);
+            fd.append("image", this.product.profile);
             this.profilePhoto = fd;
-            this.getImageBase64(this.allSettings.profile);
+            this.getImageBase64(this.product.profile);
             },
             getImageBase64: function(file) {
       let reader = new FileReader();
@@ -79,13 +128,14 @@ export default {
     position: absolute;
     display: flex;
     justify-content: space-between;
+    padding: 30px ;
 }
 .photo , .description{
     width: 40%;
 }
 .description{
-    margin-top: 10%;
     width: 50%;
+    padding-right: 150px;
 }
 img{
     width: 100%;

@@ -22,9 +22,11 @@
           </li>
           
         </ul>
-     
 
       <div class="setting">
+          <div class="icon">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+          </div>
           <b-dropdown>
             <template #button-content>
                   <em><font-awesome-icon icon="cog" /></em>
@@ -127,6 +129,24 @@ div > .navbar-brand {
 nav{
   display: flex;
   justify-content: space-between;
+}
+
+.setting{
+  display: flex;
+}
+.icon{
+  color: #FFF;
+  cursor: pointer;
+  padding:15px 12px;
+  margin-right: 10px;
+  border-radius: 2px;
+}
+.icon:hover{
+  background-color: #5C636A;
+}
+
+.icon i{
+  font-size: 130%;
 }
 
 </style>

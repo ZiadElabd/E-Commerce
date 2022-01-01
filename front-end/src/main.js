@@ -10,8 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(ElementUI, { locale });
 
-window.$ = window.jQuery = require('jquery');
-import $ from 'jquery'
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@/assets/css/main.css'
 import router from './router'

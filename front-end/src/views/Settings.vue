@@ -44,8 +44,6 @@
           </div>
 
 
-
-
           <div class="mb-3">
             <label for="Phone" class="form-label">Phone</label>
             <input
@@ -56,31 +54,7 @@
             />
           </div>
 
-          <!-- <div class="changeprofile paddingwithborder">
-            <label>photo</label> <br />
-            <b-avatar :src="profileURL"></b-avatar>
-            <input
-              type="file"
-              @change="onprofileselected"
-              style="display:none"
-              ref="fileinput"
-            />
-            <span @click="$refs.fileinput.click()">Change Photo</span>
-          </div>
-
-          <div class="changecover paddingwithborder">
-            <label>Background</label> <br />
-            <b-avatar :src="coverURL"></b-avatar>
-            <input
-              type="file"
-              @change="oncoverselected"
-              style="display:none"
-              ref="fileinput1"
-            />
-            <span @click="$refs.fileinput1.click()"
-              >Upload your background</span
-            >
-          </div> -->
+         
           <div class="save_and_cancel">
            <div>
               <button type="button" class="btn btn-primary"  @click.prevent="saveSetting">Save</button>

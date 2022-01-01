@@ -14,11 +14,7 @@ import Cart from '../views/Cart.vue'
 
 
 Vue.use(VueRouter)
-Vue.use({
-  install: function(Vue, options){
-      Vue.prototype.$jQuery = require('jquery'); // you'll have this.$jQuery anywhere in your vue project
-      }
-  });
+
 const routes = [
   
   {

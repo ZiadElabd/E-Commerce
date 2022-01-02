@@ -27,8 +27,8 @@
                     />
                   </div>
                    <div class="mb-3">
-                      <label class="form-label">Category</label>
-                     <select class="form-select" aria-label="Default select example">
+                      <label  class="form-label">Category</label>
+                     <select v-model="product.categoryName" class="form-select" aria-label="Default select example">
                         <option selected>Open this select menu</option>
                         <option value="Clothing">Clothing</option>
                         <option value="Electronics">Electronics</option>
@@ -87,7 +87,7 @@ export default {
       imageSelected: false,
       product: {
         name:"",
-        categoryName:"",
+        categoryName:'Clothing',
         description:"",
         price:"",
         quantity:"",

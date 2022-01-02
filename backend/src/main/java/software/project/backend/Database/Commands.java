@@ -57,7 +57,7 @@ public class Commands {
 
     public static String DELETE_PRODUCT(){
         return "DELETE FROM PRODUCT " +
-                "WHERE name = ?";
+                "WHERE productId = ?";
     }
 
 }

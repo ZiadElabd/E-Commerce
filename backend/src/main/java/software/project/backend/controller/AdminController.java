@@ -18,6 +18,8 @@ public class AdminController {
     @PostMapping("/addProduct/{ID}")
     public ResponseEntity<Boolean> addProductController(@RequestBody String temp,
                                                         @PathVariable("ID") String seesionID){
+        System.out.println(seesionID);
+        System.out.println(temp);
         if (service.addProduct(seesionID,temp)) return new ResponseEntity<>(true, HttpStatus.OK);
         return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }

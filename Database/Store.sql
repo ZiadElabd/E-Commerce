@@ -26,7 +26,7 @@ CREATE TABLE PRODUCT (
     price VARCHAR(30) NOT NULL,
     quantity VARCHAR(30) NOT NULL,
     discount CHAR(12),
-    image LONGTEXT,
+    image MEDIUMBLOB,
     PRIMARY KEY (productId),
     FOREIGN KEY (categoryName)
         REFERENCES CATEGORY (categoryName)
@@ -52,11 +52,10 @@ INSERT INTO CATEGORY
 VALUES 
 	('Clothing', null),
 	('Electronics', null),
-    ('Fruits', null),
-    ('Jewellery', null),
     ('Shoes', null),
-    ('Sports', null),
-    ('Watches', null);
+    ('Watches', null),
+    ('Jewallery', null),
+    ('Sports', null);
 
 INSERT INTO USER 
 VALUES (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'shop', 'owner', 'ALEX', null, 1);

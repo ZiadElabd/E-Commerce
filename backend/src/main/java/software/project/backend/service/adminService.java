@@ -30,7 +30,7 @@ public class adminService {
     public boolean deleteProduct(String sessionID,String productID){
         String userName=trackingSystem.checkAcess(sessionID);
         if (userName==null) return false;
-        return productOperation.deleteProduct(productID);
+        return productOperation.deleteProduct(0);
     }
 
     public List<Product> getAllProductByCategroy(String sessionID,String categroy){

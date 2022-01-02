@@ -70,9 +70,9 @@ public class ProductDAO {
 		return products;
 	}
 
-	public boolean deleteProduct(String name) {
+	public boolean deleteProduct(int productId) {
 
-		int result = jdbcTemplate.update(Commands.DELETE_PRODUCT(), name);
+		int result = jdbcTemplate.update(Commands.DELETE_PRODUCT(), productId);
 
 		if (result > 0) {
 			System.out.println("A new has been deleted");

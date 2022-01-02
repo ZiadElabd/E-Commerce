@@ -16,7 +16,7 @@
 
             <div class="form-group">
                 <label>userName</label>
-                <input type="email"  v-model="user.username" class="form-control form-control-lg" placeholder="Username" />
+                <input type="email"  v-model="user.userName" class="form-control form-control-lg" placeholder="Username" />
             </div>
 
 
@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label>Address</label>
-                <input type="text"  v-model="user.address" class="form-control form-control-lg" placeholder="Address" />
+                <input type="text"  v-model="user.Address" class="form-control form-control-lg" placeholder="Address" />
             </div>
              <div class="form-group">
                 <label>Phone</label>
@@ -56,10 +56,10 @@
                 user: {
                     firstName:'',
                     lastName:'',
-                    username:'',
+                    userName:'',
                     password:'',
-                    address:'',
                     phone:'',
+                    Address:'',
                 },
             }
         },
@@ -83,6 +83,7 @@
             },
             async CheckUserName(){
                 try{
+                    console.log(this.user.userName);
                     const response = await fetch("http://localhost:8080/checkUsername/" + this.user.userName,{ 
                         method: "get",
                         headers: {'Content-Type': 'application/json'}
@@ -98,6 +99,7 @@
                 return this.user.password === this.confirmPassword;
             },
             async SignUp(){
+                console.log('in sign up')
                 if(this.CheckNames() && await this.CheckUserName() && this.CheckPassword()){
                     console.log("sending sign up request");
                     const response = await fetch("http://localhost:8080/signup", {
@@ -105,7 +107,9 @@
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(this.user),
                     }).then(this.checkStatus)
-                    .then(this.parseText)
+                    .then(this.parseText);
+
+                    console.log(response);
 
                     if(response){
                         alert("Signed up seccessfully");

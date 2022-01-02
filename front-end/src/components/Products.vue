@@ -79,22 +79,49 @@ export default {
     // },
     isAdmin(){
       return this.$store.state.role;
+    },
+    userID(){
+       return this.$store.state.userID;
     }
   },
   methods: {
-     filter(){
+    filter(){
        this.filtered = this.filteredList ;
        console.log(this.filtered);
        console.log(this.filteredList);
-     },
+    },
+    parseJSON: function (resp) {
+        return resp.json();
+    },
+    checkStatus: function (resp) {
+        console.log('status');
+        console.log(resp);
+        if (resp.status >= 200 && resp.status < 300) {
+            console.log('good status');
+            return resp;
+        }
+        console.log('bad status');
+        return this.parseJSON(resp).then((resp) => {
+            throw resp;
+        });
+    },
     test(){
         console.log(this.categoryName);
     },
     view(){
       this.$router.push({ name: "displayProduct"});
     },
-    getProducts(category){
+    async getProducts(category){
       console.log(category + 'in the products components');
+      try {
+          let response = await fetch( "http://localhost:8080/admin/getProducts/" + category + '/' + this.userID , {
+              method: "get", 
+          }).then(this.checkStatus)
+          .then(this.parseJSON);
+          console.log(response);
+      } catch (error) {
+          alert('error');
+      }
     }
   },
   created() {
@@ -102,6 +129,7 @@ export default {
     bus.$on('changeCategory', (data) => {
       this.getProducts(data);
     })
+    this.getProducts('Clothing');
   },
   
 };

@@ -26,10 +26,10 @@ public class ProductDAO_Test {
     void insertProductTest() {
         String dataSent = "{\n" +
                 "   \"name\":\"apple\",\n" +
-                "    \"categoryName\":\"Fruits\",\n" +
+                "    \"categoryName\":\"Clothing\",\n" +
                 "    \"description\":\"apple is healthy\",\n" +
                 "    \"price\":\"12\",\n" +
-                "    \"amount\":\"10\",\n" +
+                "    \"quantity\":\"10\",\n" +
                 "    \"discount\":\"3\",\n" +
                 "    \"image\":\"null\"\n" +
                 "}";
@@ -68,7 +68,7 @@ public class ProductDAO_Test {
     @Order(3)
     @Test
     void deleteProductTest() {
-        assertTrue(productDAO.deleteProduct("apple"));
+        assertTrue(productDAO.deleteProduct(0));
 
     }
 

@@ -64,7 +64,10 @@
                         style="display:none"
                         ref="fileinput"
                       />
-                      <span @click="$refs.fileinput.click()"> Product photo</span>
+                      <span @click="$refs.fileinput.click()">Product photo</span>
+                </div>
+                <div class="form-group ">
+                 <b-button variant="primary" @click.prevent="addProduct" class="btn  btn-lg btn-full "> Log in </b-button>
                 </div>
             </div>
 
@@ -78,42 +81,60 @@ export default {
      components: {
     Navbar,
   },
-     data() {
+  data() {
     return {
-      selectedfile: "",
       profileURL: "",
-      profilePhoto:'',
-      profileSelected: false,
-      
+      imageSelected: false,
       product: {
         name:"",
+        categoryName:"",
         description:"",
         price:"",
         quantity:"",
-        profile:""
+        discount: 0,
+        image:"",
       }
     };
   },
-    methods:{
-         onprofileselected: function(event) {
-            this.profileSelected = true;
-            this.product.profile = event.target.files[0];
-            let fd = new FormData();
-            fd.append("image", this.product.profile);
-            this.profilePhoto = fd;
-            this.getImageBase64(this.product.profile);
-            },
-            getImageBase64: function(file) {
+  computed: {
+    userID(){
+       return this.$store.state.userID;
+    }
+  },
+  methods:{
+    onprofileselected: function(event) {
+          this.imageSelected = true;
+          this.product.image = event.target.files[0];
+          let fd = new FormData();
+          fd.append("image", this.product.image);
+          this.profilePhoto = fd;
+          this.getImageBase64(this.product.image);
+    },
+    getImageBase64: function(file) {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.profileURL = reader.result;
+        this.profileURL = this.product.image = reader.result;
       };
       reader.error = () => {
         alert("Error !!!");
       };
     },
-    }
+    addProduct() {
+      console.log(this.product.image);
+      console.log("adding product");
+      fetch(
+        "http://localhost:8080/admin/addProduct/" +
+          this.userID,
+        {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(this.product)
+        }
+      );
+    },
+  },
+  
 }
 </script>
 <style scoped>

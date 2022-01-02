@@ -42,7 +42,7 @@ public class ProductDAO_Test {
 
     @Test
     void getProductByIDTest() {
-        Product product = productDAO.getProductByID("8");
+        Product product = productDAO.getProductByID(8);
         System.out.println(product.getCategoryName() + "  " + product.getName());
     }
 

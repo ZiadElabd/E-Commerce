@@ -33,7 +33,7 @@ public class ProductDAO {
 		return false ;
 	}
 
-	public boolean updateProduct(Product p, int productId) {
+	public boolean updateProduct(Product p, String productId) {
 
 		int result = jdbcTemplate.update(Commands.UPDATE_PRODUCT(),
 				p.getCategoryName(),
@@ -51,7 +51,7 @@ public class ProductDAO {
 		return false ;
 	}
 
-	public Product getProductByID(int ID) {
+	public Product getProductByID(String ID) {
 		Product product = (Product) jdbcTemplate.queryForObject(Commands.GET_PRODUCT_BY_ID(),
 				new BeanPropertyRowMapper(Product.class), ID);
 		return product;

@@ -15,9 +15,9 @@ public class adminService {
         Product product=(Product) director.composeModel("product",dataSent);
         return productOperation.insertProduct(product);
     }
-    public boolean UpdateProduct(String dataSent){
+    public boolean UpdateProduct(int productID,String dataSent){
         Product product=(Product) director.composeModel("product",dataSent);
-        return productOperation.updateProduct(product,"");
+        return productOperation.updateProduct(product,productID);
     }
     public boolean deleteProduct(String name){
         return productOperation.deleteProduct(name);

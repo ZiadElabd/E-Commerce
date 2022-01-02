@@ -7,20 +7,22 @@ import software.project.backend.service.adminService;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/admin")
 public class AdminController {
     adminService service=new adminService();
-    @PostMapping("/admin/addProduct")
+    @PostMapping("/addProduct")
     public ResponseEntity<Boolean> addProductController(@RequestBody String temp){
         if (service.addProduct(temp)) return new ResponseEntity<>(true, HttpStatus.OK);
         return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }
-    @PutMapping("/admin/updateProduct")
-    public ResponseEntity<Boolean> updateProductController(@RequestBody String temp){
-        if (service.UpdateProduct(temp)) return new ResponseEntity<>(true, HttpStatus.OK);
+    @PutMapping("/updateProduct/{productID}")
+    public ResponseEntity<Boolean> updateProductController(@PathVariable("productID") int productID,
+                                                           @RequestBody String temp){
+        if (service.UpdateProduct(productID,temp)) return new ResponseEntity<>(true, HttpStatus.OK);
         return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }
-    @DeleteMapping ("/admin/{productName}")
-    public ResponseEntity<Boolean> deleteProduct(@PathVariable("productName") String temp){
+    @DeleteMapping ("/{productID}")
+    public ResponseEntity<Boolean> deleteProduct(@PathVariable("productID") String temp){
         System.out.println(temp);
         if(service.deleteProduct(temp)) return new ResponseEntity<>(true, HttpStatus.ACCEPTED);
         return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);

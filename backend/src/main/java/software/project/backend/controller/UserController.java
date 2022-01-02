@@ -7,6 +7,7 @@ import software.project.backend.service.userService;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/user")
 public class UserController {
 
 }

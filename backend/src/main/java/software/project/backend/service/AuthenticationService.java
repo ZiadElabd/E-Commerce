@@ -54,4 +54,7 @@ public class AuthenticationService {
         }
         return object;
     }
+    public boolean logout(String sessionID){
+       return trackingSystem.deleteOnlineUser(sessionID);
+    }
 }

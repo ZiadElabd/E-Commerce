@@ -23,9 +23,6 @@ public class Singelton {
         onlineUser.put(uniqueID,id);
         return uniqueID;
     }
-    public boolean checkUser(String id){
-        return onlineUser.containsKey(id);
-    }
     public String checkAcess(String id){
         String realID=null;
         try {
@@ -35,8 +32,12 @@ public class Singelton {
         }
         return realID;
     }
-    public void deleteOnlineUser(String id){
-        onlineUser.remove(id);
+    public boolean deleteOnlineUser(String id){
+        try {
+            onlineUser.remove(id);
+        }catch (Exception e){
+        }
+        return true;
     }
 
 }

@@ -33,13 +33,13 @@ export default {
             return this.$store.state.role;
         }
     },
-    created() {
-        console.log("created");
-        bus.$on('changeCategory', (data) => {
-            this.getProducts(data);
-        })
-        this.getProducts('Clothing');
-  },
+//     created() {
+//     console.log("created");
+//     bus.$on('changeCategory', (data) => {
+//       this.getProducts(data);
+//     })
+//     this.getProducts('Clothing');
+//   },
 
 }
 </script>

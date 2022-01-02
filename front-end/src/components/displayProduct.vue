@@ -10,7 +10,7 @@
                         <h1>Name</h1>
                         <p>;pskjhf kjhfj djghjf dlokjuisdkh djhdjnd jfhjf posdujfik dikyhfu diyud fijuyhdju</p>
                 </div>
-                
+
                     
                     <div class="price">
                         <div>Quantity: 8</div>
@@ -33,6 +33,13 @@ export default {
             return this.$store.state.role;
         }
     },
+    created() {
+        console.log("created");
+        bus.$on('changeCategory', (data) => {
+            this.getProducts(data);
+        })
+        this.getProducts('Clothing');
+  },
 
 }
 </script>

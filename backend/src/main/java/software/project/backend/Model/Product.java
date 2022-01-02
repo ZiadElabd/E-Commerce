@@ -1,5 +1,6 @@
 package software.project.backend.Model;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 
 public class Product implements Imodel{
@@ -10,7 +11,7 @@ public class Product implements Imodel{
     private double price;
     private int quantity;
     private double discount;
-    private String image;
+    private Blob image;
 
 
     public int getProductId() {
@@ -69,11 +70,11 @@ public class Product implements Imodel{
         this.discount = discount;
     }
 
-    public String getImage() {
+    public Blob getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Blob image) {
         this.image = image;
     }
 }

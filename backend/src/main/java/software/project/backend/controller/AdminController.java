@@ -15,7 +15,7 @@ import java.util.List;
 public class AdminController {
     private adminService service=new adminService();
     private Singelton trackingSystem=Singelton.getInstance();
-    @PostMapping("/addProduct")
+    @PostMapping("/addProduct/{ID}")
     public ResponseEntity<Boolean> addProductController(@RequestBody String temp,
                                                         @PathVariable("ID") String seesionID){
         if (service.addProduct(seesionID,temp)) return new ResponseEntity<>(true, HttpStatus.OK);
@@ -45,6 +45,7 @@ public class AdminController {
     @GetMapping("/getProduct/{productID}/{ID}")
     public ResponseEntity<Product> getProduct(@PathVariable("productID") int productID,
                                               @PathVariable("ID") String seesionID){
+        System.out.println(productID+"---"+seesionID);
         Product result=service.getProductByID(seesionID,productID);
         if (result!=null) return  new ResponseEntity<>(result, HttpStatus.ACCEPTED);
         return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);

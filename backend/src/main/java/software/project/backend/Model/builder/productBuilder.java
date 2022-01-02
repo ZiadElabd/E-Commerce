@@ -5,7 +5,11 @@ import org.json.JSONObject;
 import software.project.backend.Model.Imodel;
 import software.project.backend.Model.Product;
 
-import java.util.ArrayList;
+import javax.sql.rowset.serial.SerialBlob;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Base64;
+
 
 public class productBuilder implements Ibuilder {
     private Product productModel;
@@ -15,7 +19,16 @@ public class productBuilder implements Ibuilder {
     private void buildPrice(double price){this.productModel.setPrice(price);}
     private void buildQuantity(int quantity){this.productModel.setQuantity(quantity);}
     private void buildDiscount(double discount){this.productModel.setDiscount(discount);}
-    private void buildImage(String image){this.productModel.setImage(image);}
+    private void buildImage(String image){
+        Blob b = null;
+        try {
+            byte[] decodedByte = Base64.getDecoder().decode(image);
+             b= new SerialBlob(decodedByte);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        this.productModel.setImage(b);
+    }
     @Override
     public boolean comopse(String sentData) {
         this.productModel=new Product();
@@ -25,7 +38,7 @@ public class productBuilder implements Ibuilder {
             buildCategoryName(obj.getString("categoryName"));
             buildDescription(obj.getString("description"));
             buildPrice(obj.getDouble("price"));
-            buildQuantity(obj.getInt("amount"));
+            buildQuantity(obj.getInt("quantity"));
             buildDiscount(obj.getDouble("discount"));
             buildImage(obj.getString("image"));
         } catch (JSONException e) {

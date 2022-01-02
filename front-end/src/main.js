@@ -28,6 +28,7 @@ Vue.use(IconsPlugin)
 
 //import mixin from './mixin.js'
 //Vue.use(mixin);
+export const bus = new Vue();
 
 new Vue({
   router,

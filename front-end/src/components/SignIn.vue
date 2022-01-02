@@ -86,9 +86,9 @@
                 const state = await this.login();
                 if (state.valid) {
                     if(state.role)
-                        this.$router.push({ name: "AdminSettings" });
+                        this.$router.push({ name: "Products"});
                     else
-                        this.$router.push({ name: "Home" });
+                        this.$router.push({ name: "Products"});
                 } else {
                     alert("Please try agian, email or password is wrong :(");
                 }

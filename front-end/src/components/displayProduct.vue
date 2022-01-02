@@ -26,7 +26,13 @@ import Navbar from "../components/nbar.vue";
 export default {
     components:{
         Navbar
-    }
+    },
+    computed: {
+        isAdmin(){
+            return this.$store.state.role;
+        }
+    },
+    
 }
 </script>
 <style scoped>

@@ -44,6 +44,7 @@
 
 <script>
 import Navbar from "../components/nbar.vue";
+import { bus } from '../main'
 export default {
   name: "Products",
   components: {
@@ -76,8 +77,8 @@ export default {
     //     return p.name.toLowerCase().includes(this.searchValue.toLowerCase())
     //   })
     // },
-    categoryName(){
-      return this.$route.params.category;
+    isAdmin(){
+      return this.$store.state.role;
     }
   },
   methods: {
@@ -88,7 +89,19 @@ export default {
      },
     test(){
         console.log(this.categoryName);
+    },
+    view(){
+      this.$router.push({ name: "displayProduct"});
+    },
+    getProducts(category){
+      console.log(category + 'in the products components');
     }
+  },
+  created() {
+    console.log("created");
+    bus.$on('changeCategory', (data) => {
+      this.getProducts(data);
+    })
   },
   
 };

@@ -23,7 +23,7 @@ const routes = [
     component: SignIn
   },
   {
-    path: '/Products/:category',
+    path: '/Products',
     name: 'Products',
     component: Products
   },
@@ -62,8 +62,6 @@ const routes = [
     name: 'Notifications',
     component: Notifications
   },
-  
-
   {
     path: '/Settings',
     name: 'Settings',

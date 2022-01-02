@@ -2,22 +2,22 @@
   <nav class="navbar navbar-dark bg-primary navbar navbar-expand-lg">
      <div class="container">
        <ul class="categories navbar-nav  mr-auto">
-          <li class="category_item">
+          <li @click="getProductsEvent('Clothing')" class="category_item">
             Clothing
           </li>
-          <li class="category_item">
+          <li @click="getProductsEvent('Electronics')" class="category_item">
             Electronics
           </li>
-          <li class="category_item">
+          <li @click="getProductsEvent('Shoes')" class="category_item">
             Shoes
           </li>
-          <li class="category_item">
+          <li @click="getProductsEvent('Watches')" class="category_item">
             Watches
           </li>
-          <li class="category_item">
+          <li @click="getProductsEvent('Jewallery')" class="category_item">
             Jewallery
           </li>
-          <li class="category_item">
+          <li @click="getProductsEvent('Sports')" class="category_item">
             Sports
           </li>
           
@@ -32,7 +32,7 @@
                   <em><font-awesome-icon icon="cog" /></em>
             </template>
             <b-dropdown-item to="/Settings">Settings</b-dropdown-item>
-                <b-dropdown-item  @click.native="reset" to="/">Log Out</b-dropdown-item>
+                <b-dropdown-item to="/">Log Out</b-dropdown-item>
           </b-dropdown>
       </div>
      </div>
@@ -40,34 +40,19 @@
   </nav>
 </template>
 <script>
+import { bus } from '../main'
 export default {
   name: "Navbar",
   computed: {
-    userName() {
-      console.log("in nav bar => " + this.$store.state.userName);
-      return this.$store.state.userName;
-    },
-    userImage(){
-      return this.$store.state.userImage;
+    isAdmin(){
+      return this.$store.state.role;
     }
   },
   methods:{
-    reset(){
-      fetch(
-          "http://localhost:5050/logout/" + this.$store.state.userID ,
-          {
-            method: "post",
-          }
-      );
-      this.$store.commit('reset');
-    },
-    decodeImage(image){
-      return 'data:image/jpeg;base64,' + image;
-    },
-  },
-  created() {
-    console.log("nav created");
-    console.log("in nav bar => " + this.$store.state.userName);
+    getProductsEvent(category){
+      console.log(category + ' in nav bar');
+      bus.$emit('changeCategory', category);
+    }
   },
 };
 </script>

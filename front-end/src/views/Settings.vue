@@ -162,8 +162,8 @@ export default {
       try {
           let response = await fetch( "http://localhost:8080/admin/getSetting/" + this.userID, {
               method: "get", 
-          }).then(checkStatus)
-          .then(parseJSON);
+          }).then(this.checkStatus)
+          .then(this.parseJSON);
           console.log(response);
           this.allSettings = response;
       } catch (error) {

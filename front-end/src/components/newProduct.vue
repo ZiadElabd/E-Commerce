@@ -130,6 +130,7 @@ export default {
       } else{
         this.addProduct();
       }
+      this.$router.push({ name: "Products"});
     },
     updateProduct(){
       console.log("updating product");

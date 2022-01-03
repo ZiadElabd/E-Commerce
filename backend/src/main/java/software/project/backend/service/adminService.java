@@ -48,6 +48,7 @@ public class adminService {
     public User getAdminInfo(String sessionID){
         String userName=trackingSystem.checkAcess(sessionID);
         if (userName==null) return null;
+        System.out.println("admin-"+userName);
         return userOperation.getUserSettings(userName);
     }
     public boolean updateAdminInfo(String sessionID,String dataSent){

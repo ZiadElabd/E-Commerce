@@ -174,7 +174,7 @@ export default {
       fetch(
         "http://localhost:8080/admin/updateAdmin/" + this.userID,
         {
-          method: "post",
+          method: "put",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(this.allSettings),
         }

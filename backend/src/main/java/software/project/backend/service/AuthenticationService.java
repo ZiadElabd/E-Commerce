@@ -44,7 +44,7 @@ public class AuthenticationService {
         User temp=userDAO.checkSignIn(userName,password);
         if(temp==null) return null;
         trackingSystem= Singelton.getInstance();
-        String sessionID=trackingSystem.addOnlineUser(String.valueOf(temp.getUserId()));
+        String sessionID=trackingSystem.addOnlineUser(userName);
         JSONObject object=new JSONObject();
         try {
             object.put("sessionID",sessionID);

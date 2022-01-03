@@ -24,7 +24,8 @@ public class userBuilder implements Ibuilder {
        }
 
        private void buildPassword(String password) {
-        this.user.setPassword(passwordOperations.passswordToHash(password));
+        if (password!=null) this.user.setPassword(passwordOperations.passswordToHash(password));
+        else this.user.setPassword(null);
        }
 
        private void buildAddress(String Address) {
@@ -45,7 +46,7 @@ public class userBuilder implements Ibuilder {
          buildFirstName(obj.getString("firstName"));
          buildLastName(obj.getString("lastName"));
          buildPassword(obj.getString("password"));
-         buildAddress(obj.getString("Address"));
+         buildAddress(obj.getString("address"));
          buildPhone(obj.getString("phone"));
          buildRole(0);
         } catch (JSONException e) {

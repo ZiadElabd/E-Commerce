@@ -67,6 +67,7 @@ public class AdminController {
     @PutMapping("/updateAdmin/{ID}")
     public ResponseEntity<Boolean> updateAdmin(@PathVariable("ID") String seesionID,
                                                @RequestBody String temp){
+        System.out.println(seesionID+"  "+temp);
         if (service.updateAdminInfo(seesionID,temp)) return  new ResponseEntity<>(true, HttpStatus.ACCEPTED);
         return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
     }

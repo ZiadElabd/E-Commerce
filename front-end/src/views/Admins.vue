@@ -123,10 +123,10 @@ import Navbar from "../components/nbar.vue";
                     console.log(response);
 
                     if(response){
-                        alert("Signed up seccessfully");
-                        this.$router.push({ name: "SignIn" });
+                        alert("new admin added seccessfully");
+                        this.$router.push({ name: "Settings"});
                     }else{
-                        alert("Failed to SignUp");
+                        alert("Failed to add new admin");
                     }
                 }else{
                     if(!this.CheckNames()){

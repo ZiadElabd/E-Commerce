@@ -130,8 +130,9 @@ export default {
         lastName:"", 
         address: "",
         phone: "",
-        userName: "jhdjikd"
+        userName: ""
       },
+      admins: [],
     };
   },
   computed:{
@@ -170,6 +171,28 @@ export default {
           alert('error');
       }
     },
+    async getAdmins(){
+      try {
+          let response = await fetch( "http://localhost:8080/admin/getAdmins/" + this.userID, {
+              method: "get", 
+          }).then(this.checkStatus)
+          .then(this.parseJSON);
+          console.log(response);
+          this.admins = response;
+          console.log(this.admins);
+      } catch (error) {
+          alert('error');
+      }
+    },
+    async deleteAdmin(userName){
+      try {
+          fetch( "http://localhost:8080/admin/" + this.userID + '/' + userName, {
+              method: "delete", 
+          })
+      } catch (error) {
+          alert('error');
+      }
+    },
     saveSetting(){
       fetch(
         "http://localhost:8080/admin/updateAdmin/" + this.userID,
@@ -179,10 +202,12 @@ export default {
           body: JSON.stringify(this.allSettings),
         }
       );
+      this.$router.push({ name: "Products"});
     },
   },
   created() {
     this.getSetting();
+    this.getAdmins();
   },
 };
 </script>

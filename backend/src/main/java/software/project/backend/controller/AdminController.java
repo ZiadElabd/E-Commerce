@@ -69,19 +69,25 @@ public class AdminController {
                                                @RequestBody String temp){
         System.out.println(seesionID+"  "+temp);
         if (service.updateAdminInfo(seesionID,temp)) return  new ResponseEntity<>(true, HttpStatus.ACCEPTED);
-        return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }
     @PostMapping("/addAdmin/{ID}")
     public ResponseEntity<Boolean> addAdmin(@PathVariable("ID") String seesionID,
                                             @RequestBody String temp){
         if (service.addAdmin(seesionID,temp)) return  new ResponseEntity<>(true, HttpStatus.ACCEPTED);
-        return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }
     @DeleteMapping("/{ID}/{AdminName}")
     public ResponseEntity<Boolean> deleteAdmin(@PathVariable("ID") String seesionID,
-                                            @PathVariable("AdminName") String AdminName){
+                                               @PathVariable("AdminName") String AdminName){
         if(service.deleteAdmin(seesionID,AdminName)) return  new ResponseEntity<>(true, HttpStatus.ACCEPTED);
-        return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
+    }
+    @PostMapping("/changePassword/{ID}")
+    public ResponseEntity<Boolean> changePassword(@PathVariable("ID") String sessionID,
+                                                  @RequestBody String temp){
+        if(service.changePassword(sessionID,temp)) return  new ResponseEntity<>(true, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }
 
 

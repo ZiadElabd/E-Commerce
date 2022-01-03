@@ -1,5 +1,7 @@
 package software.project.backend.service;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import software.project.backend.Database.ProductDAO;
@@ -8,6 +10,7 @@ import software.project.backend.Model.Product;
 import software.project.backend.Model.User;
 import software.project.backend.Model.builder.Director;
 import software.project.backend.sercuirty.Singelton;
+import software.project.backend.sercuirty.passwordOperations;
 
 import java.util.List;
 
@@ -17,6 +20,7 @@ public class adminService {
     @Autowired
     private ProductDAO productOperation=new ProductDAO();
     private Singelton trackingSystem=Singelton.getInstance();
+    private passwordOperations passwordOperations=new passwordOperations();
     public boolean addProduct(String sessionID,String dataSent){
         String userName=trackingSystem.checkAcess(sessionID);
         if (userName==null) return false;
@@ -76,6 +80,21 @@ public class adminService {
         if (userName==null) return null;
         return userOperation.getAdmins();
 
+    }
+    public boolean changePassword(String sessionID,String dataSent){
+        String userName=trackingSystem.checkAcess(sessionID);
+        String oldPassword ="";
+        String newPassword="";
+        if (userName==null) return false;
+        try {
+            JSONObject obj = new JSONObject(dataSent);
+            oldPassword= passwordOperations.passswordToHash(obj.getString("oldPassword"));
+            newPassword= passwordOperations.passswordToHash(obj.getString("newPassword"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(userOperation.checkSignIn(userName,oldPassword)!=null) return false;
+        return userOperation.changePassword(userName,newPassword);
     }
 
 

@@ -27,6 +27,7 @@ public class AdminController {
     public ResponseEntity<Boolean> updateProductController(@PathVariable("productID") int productID,
                                                            @RequestBody String temp,
                                                            @PathVariable("ID") String seesionID){
+        System.out.println(productID+"--"+temp+"--"+seesionID);
         if (service.UpdateProduct(seesionID,productID,temp)) return new ResponseEntity<>(true, HttpStatus.OK);
         return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }
@@ -47,7 +48,6 @@ public class AdminController {
     @GetMapping("/getProduct/{productID}/{ID}")
     public ResponseEntity<Product> getProduct(@PathVariable("productID") int productID,
                                               @PathVariable("ID") String seesionID){
-        System.out.println(productID+"---"+seesionID);
         Product result=service.getProductByID(seesionID,productID);
         if (result!=null) return  new ResponseEntity<>(result, HttpStatus.ACCEPTED);
         return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
@@ -86,6 +86,7 @@ public class AdminController {
     @PostMapping("/changePassword/{ID}")
     public ResponseEntity<Boolean> changePassword(@PathVariable("ID") String sessionID,
                                                   @RequestBody String temp){
+        System.out.println(sessionID+"--"+temp);
         if(service.changePassword(sessionID,temp)) return  new ResponseEntity<>(true, HttpStatus.ACCEPTED);
         return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }

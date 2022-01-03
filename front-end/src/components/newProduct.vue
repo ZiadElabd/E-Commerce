@@ -135,11 +135,11 @@ export default {
     updateProduct(){
       console.log("updating product");
       fetch(
-        "http://localhost:8080/updateProduct/" +
-          this.product.productId, + '/' + 
+        "http://localhost:8080/admin/updateProduct/" +
+          this.product.productId + '/' + 
           this.userID,
         {
-          method: "post",
+          method: "put",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(this.product)
         }

@@ -17,13 +17,6 @@ public class AuthenticationService {
     private UserDAO userDAO=new UserDAO();
     public boolean signUp(String dataSent){
         User user = (User) director.composeModel("user",dataSent);
-        System.out.println(user.getUserName()+
-                " "+user.getFirstName()+
-                " " +user.getPassword()+
-                " "+user.getLastName()+
-                " "+user.getAddress()+
-                " "+user.getPhone()
-        );
         return userDAO.insertUser(user);
     }
     public boolean checkUserName(String userName){
@@ -36,7 +29,6 @@ public class AuthenticationService {
             JSONObject obj = new JSONObject(dataSent);
             userName=obj.getString("userName");
             password=passwordOperations.passswordToHash(obj.getString("password"));
-            System.out.println(userName+"-->"+password+"-->"+obj.getString("password"));
         } catch (JSONException e) {
             return null;
         }
@@ -51,6 +43,7 @@ public class AuthenticationService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        System.out.println(sessionID);
         return object;
     }
     public boolean logout(String sessionID){

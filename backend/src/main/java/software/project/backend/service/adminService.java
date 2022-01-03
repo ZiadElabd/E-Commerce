@@ -90,10 +90,11 @@ public class adminService {
             JSONObject obj = new JSONObject(dataSent);
             oldPassword= passwordOperations.passswordToHash(obj.getString("oldPassword"));
             newPassword= passwordOperations.passswordToHash(obj.getString("newPassword"));
+            System.out.println(oldPassword);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if(userOperation.checkSignIn(userName,oldPassword)!=null) return false;
+        if(userOperation.checkSignIn(userName,oldPassword)==null) return false;
         return userOperation.changePassword(userName,newPassword);
     }
 

@@ -13,7 +13,6 @@ public class AuthenticationController {
     AuthenticationService service=new AuthenticationService();
     @PostMapping("/signup")
     public ResponseEntity<Boolean> signupController(@RequestBody String temp){
-        System.out.println(temp);
         if (service.signUp(temp)) return new ResponseEntity<>(true, HttpStatus.OK);
         return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }
@@ -21,7 +20,6 @@ public class AuthenticationController {
 
     @GetMapping("/checkUsername/{userName}")
     public ResponseEntity<Boolean> checkUsernameController(@PathVariable("userName") String temp){
-        System.out.println(temp);
         if(service.checkUserName(temp)) return new ResponseEntity<>(true, HttpStatus.ACCEPTED);
         return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }

@@ -51,10 +51,10 @@ export default {
     Navbar,
   },
   data() {
-     return{
-      searchValue:'',
-      products:[],
-     }
+    return{
+        searchValue:'',
+        products:[],
+    }
   },
   computed: {
     //  filteredList() {

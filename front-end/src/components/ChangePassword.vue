@@ -6,11 +6,11 @@
         <form>
             <div class="form-group">
                 <label>Old Password</label>
-                <input type="password"  v-model="oldPassword" class="form-control form-control-lg shadow-none" placeholder="old password" />
+                <input type="password"  v-model="form.oldPassword" class="form-control form-control-lg shadow-none" placeholder="old password" />
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password"  v-model="password" class="form-control form-control-lg shadow-none" placeholder="new password" />
+                <input type="password"  v-model="form.newPassword" class="form-control form-control-lg shadow-none" placeholder="new password" />
             </div>
 
             <div class="form-group">
@@ -33,25 +33,71 @@
 
 <script>
 import Navbar from "../components/nbar.vue";
-    export default {
-        name: 'ChangePassword',
-        components:{
+export default {
+    name: 'ChangePassword',
+    components:{
         Navbar
     },
-    methods: {
-        cancel(){
-            //this.$router.push({ name: "displayProduct" , params: { product: product } });
-            },
-    },
-        data() {
-            return {
-                confirmPassword:'',
+    data() {
+        return {
+            confirmPassword:'',
+            form:{
                 oldPassword:'',
-                password:'',
-                
+                newPassword:'',
             }
+        }
+    },
+    computed: {
+        userID(){
+            return this.$store.state.userID;
+        }
+    },
+    methods: {
+        parseText: function (resp) {
+            return resp.text();
         },
-    }
+        checkStatus: function (resp) {
+            console.log('status');
+            console.log(resp);
+            if (resp.status >= 200 && resp.status < 300) {
+                console.log('good status');
+                return resp;
+            }
+            console.log('bad status');
+            return this.parseJSON(resp).then((resp) => {
+                throw resp;
+            });
+        },
+        CheckPassword(){
+            return this.form.newPassword === this.confirmPassword;
+        },
+        cancel(){
+            this.$router.push({ name: "Settings"});
+        },
+        async confirm(){
+            if(this.CheckPassword()){
+                try {
+                    const response = await fetch( "http://localhost:8080/admin/changePassword/" + this.userID , {
+                        method: "post",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(this.form)
+                    }).then(this.checkStatus)
+                    .then(this.parseJSON);
+
+                    if(response){
+                        this.$router.push({ name: "Settings"});
+                    }else{
+                        alert("Wrong password");
+                    }
+                } catch (error) {
+                     alert("Error in changing password\n Please try again");
+                }
+            }else{
+                alert("passwords are not identical");
+            }
+        }
+    },
+}
     
 </script>
 

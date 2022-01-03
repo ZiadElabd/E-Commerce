@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label>Address</label>
-                <input type="text"  v-model="user.Address" class="form-control form-control-lg" placeholder="Address" />
+                <input type="text"  v-model="user.address" class="form-control form-control-lg" placeholder="Address" />
             </div>
              <div class="form-group">
                 <label>Phone</label>
@@ -59,7 +59,7 @@
                     userName:'',
                     password:'',
                     phone:'',
-                    Address:'',
+                    address:'',
                 },
             }
         },

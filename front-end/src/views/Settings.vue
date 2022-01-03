@@ -88,7 +88,7 @@
               type="text"
               class="form-control"
               id="address"
-              v-model="allSettings.Address"
+              v-model="allSettings.address"
             />
     </td>
     <td class="add">
@@ -128,7 +128,7 @@ export default {
       allSettings: {
         firstName:"",
         lastName:"", 
-        Address: "",
+        address: "",
         phone: "",
         userName: "jhdjikd"
       },

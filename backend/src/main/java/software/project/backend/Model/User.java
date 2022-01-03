@@ -8,7 +8,7 @@ public class User implements Imodel{
 	private String password;
 	private String Address;
 	private String phone;
-	private boolean role;
+	private int role;
 	
 	public User()
 	{
@@ -73,11 +73,11 @@ public class User implements Imodel{
 		this.Address = address;
 	}
 
-	public boolean getRole() {
+	public int getRole() {
 		return role;
 	}
 
-	public void setRole(boolean role) {
+	public void setRole(int role) {
 		this.role = role;
 	}
 }

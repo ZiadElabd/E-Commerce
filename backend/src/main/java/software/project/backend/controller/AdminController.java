@@ -4,9 +4,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import software.project.backend.Model.Product;
+import software.project.backend.Model.User;
 import software.project.backend.sercuirty.Singelton;
 import software.project.backend.service.adminService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -50,5 +52,37 @@ public class AdminController {
         if (result!=null) return  new ResponseEntity<>(result, HttpStatus.ACCEPTED);
         return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
     }
+    @GetMapping("/getSetting/{ID}")
+    public ResponseEntity<User> getSetting( @PathVariable("ID") String seesionID){
+        User user=service.getAdminInfo(seesionID);
+        if (user!=null) return  new ResponseEntity<>(user, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+    }
+    @GetMapping("/getAdmins/{ID}")
+    public ResponseEntity<List<String>> getAdmins(@PathVariable("ID") String seesionID){
+        ArrayList<String> admins= (ArrayList<String>) service.getAllAdmins(seesionID);
+        if (admins!=null) return  new ResponseEntity<>(admins, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+    }
+    @PutMapping("/updateAdmin/{ID}")
+    public ResponseEntity<Boolean> updateAdmin(@PathVariable("ID") String seesionID,
+                                               @RequestBody String temp){
+        if (service.updateAdminInfo(seesionID,temp)) return  new ResponseEntity<>(true, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+    }
+    @PostMapping("/addAdmin/{ID}")
+    public ResponseEntity<Boolean> addAdmin(@PathVariable("ID") String seesionID,
+                                            @RequestBody String temp){
+        if (service.addAdmin(seesionID,temp)) return  new ResponseEntity<>(true, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+    }
+    @DeleteMapping("/{ID}/{AdminName}")
+    public ResponseEntity<Boolean> deleteAdmin(@PathVariable("ID") String seesionID,
+                                            @PathVariable("AdminName") String AdminName){
+        if(service.deleteAdmin(seesionID,AdminName)) return  new ResponseEntity<>(true, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+    }
+
+
 
 }

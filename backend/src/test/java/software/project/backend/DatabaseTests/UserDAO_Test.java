@@ -7,6 +7,8 @@ import software.project.backend.Model.User;
 import software.project.backend.Model.builder.Director;
 import software.project.backend.sercuirty.passwordOperations;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -69,6 +71,19 @@ public class UserDAO_Test {
         assertFalse(user.getRole());
         assertNull(user.getUserName());
         assertNull(user.getPassword());
+    }
+
+    @Test
+    void getAdminsTest(){
+        List<String> admins = userDAO.getAdmins();
+        for(String admin : admins){
+            System.out.println(admin);
+        }
+    }
+
+    @Test
+    void deleteAdminTest(){
+        assertTrue(userDAO.deleteAdmin("ziad"));
     }
 
 }

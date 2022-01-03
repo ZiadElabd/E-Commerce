@@ -5,7 +5,10 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import software.project.backend.Database.CustomMappers.SignInMapper;
+import software.project.backend.Model.Product;
 import software.project.backend.Model.User;
+
+import java.util.List;
 
 public class UserDAO {
 
@@ -85,6 +88,20 @@ public class UserDAO {
 //		}
 //		return false ;
 //	}
+
+	public List<String> getAdmins() {
+		List<String> admins = jdbcTemplate.queryForList(Commands.GET_ADMINS(),String.class);
+		return admins;
+	}
+
+	public boolean deleteAdmin(String userName){
+		int result = jdbcTemplate.update(Commands.DELETE_ADMIN(), userName);
+		if (result > 0) {
+			System.out.println("Admin is removed");
+			return true ;
+		}
+		return false ;
+	}
 
 	public boolean deleteAllCustomers(){
 		jdbcTemplate.update(Commands.DELETE_ALL_CUSTOMERS());

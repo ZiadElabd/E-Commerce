@@ -26,6 +26,14 @@ public class Commands {
         return "UPDATE USER SET password = ? WHERE userName = ?";
     }
 
+    public static String GET_ADMINS(){
+        return "SELECT userName FROM USER WHERE role != 0 AND role != 1";
+    }
+
+    public static String DELETE_ADMIN(){
+        return "DELETE FROM USER WHERE role != 1 AND role != 0 AND userName = ?; ";
+    }
+
     public static String DELETE_ALL_CUSTOMERS(){
         return "DELETE FROM USER WHERE role != 1; ";
     }

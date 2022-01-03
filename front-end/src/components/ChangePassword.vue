@@ -1,5 +1,7 @@
 <template>
-    <div class="container">
+    <div class="change">
+        <Navbar />
+        <div class="container">
         <div class=" changePassword" >
         <form>
             <div class="form-group">
@@ -19,18 +21,28 @@
             <div class="form-group ">
                 <div>
               <button type="button" class="btn btn-primary"  @click.prevent="confirm">Save</button>
-            <button type="button" class="btn btn-outline-dark">Cancel</button>
+            <button type="button" class="btn btn-outline-dark" @click="cancel">Cancel</button>
            </div>
             </div>
         </form>
             
     </div>
     </div>
+    </div>
 </template>
 
 <script>
+import Navbar from "../components/nbar.vue";
     export default {
         name: 'ChangePassword',
+        components:{
+        Navbar
+    },
+    methods: {
+        cancel(){
+            //this.$router.push({ name: "displayProduct" , params: { product: product } });
+            },
+    },
         data() {
             return {
                 confirmPassword:'',
@@ -40,6 +52,7 @@
             }
         },
     }
+    
 </script>
 
 <style scoped>  

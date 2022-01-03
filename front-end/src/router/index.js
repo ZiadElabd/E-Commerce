@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Friends from '../views/Friends.vue'
+import Admins from '../views/Admins.vue'
 import Notifications from '../views/Notifications.vue'
 import Settings from '../views/Settings.vue'
 import SignIn from '../components/SignIn.vue'
@@ -46,6 +47,11 @@ const routes = [
         path: '/signup',
         name: 'SignUp',
         component: SignUp
+    },
+    {
+        path: '/admins',
+        name: 'Admins',
+        component: Admins
     },
     {
         path: '/ChangePassword',

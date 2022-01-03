@@ -105,6 +105,7 @@
            </div>
            <div>
               <router-link to="/ChangePassword">Change Password</router-link>
+              <router-link to="/admins">Admins</router-link>
            </div>
           </div>
         </form>

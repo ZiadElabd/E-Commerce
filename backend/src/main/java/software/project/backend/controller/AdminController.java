@@ -76,6 +76,12 @@ public class AdminController {
         if (service.addAdmin(seesionID,temp)) return  new ResponseEntity<>(true, HttpStatus.ACCEPTED);
         return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
     }
+    @DeleteMapping("/{ID}/{AdminName}")
+    public ResponseEntity<Boolean> deleteAdmin(@PathVariable("ID") String seesionID,
+                                            @PathVariable("AdminName") String AdminName){
+        if(service.deleteAdmin(seesionID,AdminName)) return  new ResponseEntity<>(true, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+    }
 
 
 

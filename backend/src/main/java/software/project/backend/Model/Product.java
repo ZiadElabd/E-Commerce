@@ -11,7 +11,7 @@ public class Product implements Imodel{
     private double price;
     private int quantity;
     private double discount;
-    private Blob image;
+    private String image;
 
 
     public int getProductId() {
@@ -70,11 +70,11 @@ public class Product implements Imodel{
         this.discount = discount;
     }
 
-    public Blob getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Blob image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

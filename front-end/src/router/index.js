@@ -16,64 +16,64 @@ import Cart from '../views/Cart.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  
-  {
-    path: '/',
-    name: 'SignIn',
-    component: SignIn
-  },
-  {
-    path: '/Products',
-    name: 'Products',
-    component: Products
-  },
-  {
-    path: '/Cart',
-    name: 'Cart',
-    component: Cart
-  },
-  {
-    path: '/newProduct',
-    name: 'newProduct',
-    component: newProduct
-  },
-  {
-    path: '/displayProduct',
-    name: 'displayProduct',
-    component: displayProduct
-  },
-  {
-    path: '/signup',
-    name: 'SignUp',
-    component: SignUp
-  },
-  {
-    path: '/ChangePassword',
-    name: 'ChangePassword',
-    component: ChangePassword
-  },
-  {
-    path: '/Friends',
-    name: 'Friends',
-    component: Friends
-  },
-  {
-    path: '/Notifications',
-    name: 'Notifications',
-    component: Notifications
-  },
-  {
-    path: '/Settings',
-    name: 'Settings',
-    component: Settings
-  },
- 
+
+    {
+        path: '/',
+        name: 'SignIn',
+        component: SignIn
+    },
+    {
+        path: '/Products',
+        name: 'Products',
+        component: Products
+    },
+    {
+        path: '/Cart',
+        name: 'Cart',
+        component: Cart
+    },
+    {
+        path: '/newProduct',
+        name: 'newProduct',
+        component: newProduct
+    },
+    {
+        path: '/displayProduct',
+        name: 'displayProduct',
+        component: displayProduct
+    },
+    {
+        path: '/signup',
+        name: 'SignUp',
+        component: SignUp
+    },
+    {
+        path: '/ChangePassword',
+        name: 'ChangePassword',
+        component: ChangePassword
+    },
+    {
+        path: '/Friends',
+        name: 'Friends',
+        component: Friends
+    },
+    {
+        path: '/Notifications',
+        name: 'Notifications',
+        component: Notifications
+    },
+    {
+        path: '/Settings',
+        name: 'Settings',
+        component: Settings
+    },
+
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
 
 export default router

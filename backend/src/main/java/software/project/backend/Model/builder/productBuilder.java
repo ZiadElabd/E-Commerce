@@ -20,14 +20,14 @@ public class productBuilder implements Ibuilder {
     private void buildQuantity(int quantity){this.productModel.setQuantity(quantity);}
     private void buildDiscount(double discount){this.productModel.setDiscount(discount);}
     private void buildImage(String image){
-        Blob b = null;
+      /*  Blob b = null;
         try {
             byte[] decodedByte = Base64.getDecoder().decode(image);
              b= new SerialBlob(decodedByte);
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        this.productModel.setImage(b);
+        }*/
+        this.productModel.setImage(image);
     }
     @Override
     public boolean comopse(String sentData) {

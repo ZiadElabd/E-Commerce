@@ -2,10 +2,6 @@ package software.project.backend.Database;
 
 public class Commands {
 
-    private final String SQL_GET_ALL = "select * from people";
-    private final String SQL_INSERT_PERSON = "insert into people(id, first_name, last_name, age) values(?,?,?,?)";
-    private final String SQL_FIND_USER = "select * from user where userName = ?";
-
     public static String INSERT_USER(){
         return "INSERT INTO USER " +
                 "(userName, password, firstName, lastName, Address, Phone, role) " +
@@ -15,6 +11,10 @@ public class Commands {
 
     public static String SELECT_BY_USERNAME(){
         return "SELECT COUNT(*) FROM USER WHERE userName = ? ";
+    }
+
+    public static String GET_USER_DATA(){
+        return "SELECT * FROM USER WHERE userName = ? ";
     }
 
 

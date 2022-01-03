@@ -3,7 +3,7 @@
             <Navbar />
             <div class="product">
                 <div class="photo">
-                    <img src="../assets/market.jpg" alt="">
+                    <img :src="product.image" alt="">
                 </div>
                 <div class="description">
                 <div class="name">

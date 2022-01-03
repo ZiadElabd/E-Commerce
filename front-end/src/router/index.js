@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Friends from '../views/Friends.vue'
 import Admins from '../views/Admins.vue'
 import Notifications from '../views/Notifications.vue'
 import Settings from '../views/Settings.vue'
@@ -34,6 +33,11 @@ const routes = [
         component: Cart
     },
     {
+        path: '/newProduct/:product',
+        name: 'newProduct',
+        component: newProduct
+    },
+    {
         path: '/newProduct',
         name: 'newProduct',
         component: newProduct
@@ -57,11 +61,6 @@ const routes = [
         path: '/ChangePassword',
         name: 'ChangePassword',
         component: ChangePassword
-    },
-    {
-        path: '/Friends',
-        name: 'Friends',
-        component: Friends
     },
     {
         path: '/Notifications',

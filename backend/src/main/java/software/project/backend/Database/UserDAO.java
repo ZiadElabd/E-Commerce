@@ -1,6 +1,7 @@
 package software.project.backend.Database;
 
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import software.project.backend.Database.CustomMappers.SignInMapper;
@@ -64,6 +65,26 @@ public class UserDAO {
 		}
 		return false ;
 	}
+
+	public User getUserSettings(String userName){
+		User user = (User) jdbcTemplate.queryForObject(Commands.GET_USER_DATA(),
+				new BeanPropertyRowMapper(User.class),
+				userName);
+		if (user != null) {
+			user.setPassword(null);
+		}
+		return user;
+	}
+
+//	public User updateUserSettings(String userName, User user){
+//		int result = jdbcTemplate.update(Commands.CHANGE_PASSWORD(), password, userName);
+//
+//		if (result > 0) {
+//			System.out.println("Password is changed");
+//			return true ;
+//		}
+//		return false ;
+//	}
 
 	public boolean deleteAllCustomers(){
 		jdbcTemplate.update(Commands.DELETE_ALL_CUSTOMERS());

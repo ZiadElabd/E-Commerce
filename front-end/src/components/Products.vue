@@ -2,8 +2,8 @@
 
 <div class="products">
        <Navbar />
-    <div class="add">
-       <router-link to="/newProduct"> <span>+</span></router-link>
+    <div v-if="isAdmin" class="add">
+       <router-link to="/newProduct" > <span>+</span></router-link>
      
     </div>
      <!-- <div class="search">
@@ -94,7 +94,11 @@ export default {
         console.log(this.categoryName);
     },
     view(product){
-      this.$router.push({ name: "displayProduct" , params: { product: product } });
+      if(this.isAdmin){
+        this.$router.push({ name: "newProduct" , params: { product: product } });
+      }else{
+        this.$router.push({ name: "displayProduct" , params: { product: product } });
+      }
     },
     async getProducts(category){
       this.products = [];

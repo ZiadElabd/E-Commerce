@@ -24,7 +24,7 @@
         </ul>
 
       <div class="setting">
-          <div class="icon">
+          <div v-if="!isAdmin" class="icon">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
           </div>
           <b-dropdown>

@@ -67,7 +67,7 @@
                       <span @click="$refs.fileinput.click()">Product photo</span>
                 </div>
                 <div class="form-group ">
-                 <b-button variant="primary" @click.prevent="addProduct" class="btn  btn-lg btn-full "> Log in </b-button>
+                 <b-button variant="primary" @click.prevent="addProduct" class="btn  btn-lg btn-full "> Save </b-button>
                 </div>
             </div>
 
@@ -97,18 +97,21 @@ export default {
     };
   },
   computed: {
-    userID(){
-       return this.$store.state.userID;
-    }
+      isAdmin(){
+        return this.$store.state.role;
+      },
+      productParam(){
+        return this.$route.params.product;
+      },
+      userID(){
+        return this.$store.state.userID;
+      }
   },
   methods:{
     onprofileselected: function(event) {
-          this.imageSelected = true;
-          this.product.image = event.target.files[0];
-          let fd = new FormData();
-          fd.append("image", this.product.image);
-          this.profilePhoto = fd;
-          this.getImageBase64(this.product.image);
+      this.imageSelected = true;
+      this.product.image = event.target.files[0];
+      this.getImageBase64(this.product.image);
     },
     getImageBase64: function(file) {
       let reader = new FileReader();
@@ -134,6 +137,14 @@ export default {
         }
       );
     },
+  },
+  created() {
+    console.log('vvvvvvvvvvvvv');
+    console.log(this.productParam);
+    if(this.productParam){
+      this.product = this.productParam;
+      this.profileURL = this.product.image;
+    }
   },
   
 }

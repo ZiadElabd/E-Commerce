@@ -69,6 +69,11 @@ import Navbar from "../components/nbar.vue";
                 },
             }
         },
+        computed:{
+            userID(){
+                return this.$store.state.userID;
+            },
+        },
         methods:{
             parseText: function (resp) {
                 return resp.text();
@@ -108,7 +113,7 @@ import Navbar from "../components/nbar.vue";
                 console.log('in sign up')
                 if(this.CheckNames() && await this.CheckUserName() && this.CheckPassword()){
                     console.log("sending sign up request");
-                    const response = await fetch("http://localhost:8080/signup", {
+                    const response = await fetch("http://localhost:8080/admin/addAdmin/" + this.userID, {
                         method: "post",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(this.user),

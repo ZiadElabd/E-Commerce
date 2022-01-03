@@ -8,6 +8,11 @@ public class Commands {
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
     }
 
+    public static String UPDATE_USER_SETTINGS(){
+        return "UPDATE USER SET firstName = ?, lastName = ?, Address = ?, Phone = ? " +
+                " WHERE userName = ? ";
+    }
+
 
     public static String SELECT_BY_USERNAME(){
         return "SELECT COUNT(*) FROM USER WHERE userName = ? ";

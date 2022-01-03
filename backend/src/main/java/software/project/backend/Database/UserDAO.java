@@ -79,15 +79,21 @@ public class UserDAO {
 		return user;
 	}
 
-//	public User updateUserSettings(String userName, User user){
-//		int result = jdbcTemplate.update(Commands.CHANGE_PASSWORD(), password, userName);
-//
-//		if (result > 0) {
-//			System.out.println("Password is changed");
-//			return true ;
-//		}
-//		return false ;
-//	}
+	public boolean updateUserSettings(String userName, User user){
+
+		int result = jdbcTemplate.update(Commands.UPDATE_USER_SETTINGS(),
+				user.getFirstName(),
+				user.getLastName(),
+				user.getAddress(),
+				user.getPhone(),
+				userName);
+
+		if (result > 0) {
+			System.out.println("Password is changed");
+			return true ;
+		}
+		return false ;
+	}
 
 	public List<String> getAdmins() {
 		List<String> admins = jdbcTemplate.queryForList(Commands.GET_ADMINS(),String.class);

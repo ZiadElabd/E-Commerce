@@ -86,4 +86,18 @@ public class UserDAO_Test {
         assertTrue(userDAO.deleteAdmin("ziad"));
     }
 
+    @Test
+    void updateUserSettingsTest(){
+        String dataSent = "{\n" +
+                "   \"userName\":\"ziadElabd\",\n" +
+                "    \"firstName\":\"zezo\",\n" +
+                "    \"lastName\":\"elabd\",\n" +
+                "    \"password\":\"123\",\n" +
+                "    \"Address\":\"Alex\",\n" +
+                "    \"phone\":\"123456\"\n" +
+                "}";
+        User user = (User) director.composeModel("user",dataSent);
+        assertTrue(userDAO.updateUserSettings("ziad2", user));
+    }
+
 }

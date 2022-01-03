@@ -50,7 +50,7 @@
               type="text"
               class="form-control"
               id="Phone"
-              v-model="allSettings.Phone"
+              v-model="allSettings.phone"
             />
           </div>
 
@@ -88,7 +88,7 @@
               type="text"
               class="form-control"
               id="address"
-              v-model="allSettings.address"
+              v-model="allSettings.Address"
             />
     </td>
     <td class="add">
@@ -125,92 +125,14 @@ export default {
   },
   data() {
     return {
-      selectedfile: "",
-      profileURL: "",
-      coverURL: "",
-      profilePhoto:'',
-      coverPhoto:'',
-      profileSelected: false,
-      coverSelected: false,
       allSettings: {
         firstName:"",
         lastName:"", 
-        address: "",
-        Phone: "",
+        Address: "",
+        phone: "",
         userName: "jhdjikd"
       },
     };
-  },
-  methods: {
-    onprofileselected: function(event) {
-      this.profileSelected = true;
-      this.allSettings.profile = event.target.files[0];
-      let fd = new FormData();
-      fd.append("image", this.allSettings.profile);
-      this.profilePhoto = fd;
-      this.getImageBase64(this.allSettings.profile);
-    },
-    getImageBase64: function(file) {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.profileURL = reader.result;
-      };
-      reader.error = () => {
-        alert("Error !!!");
-      };
-    },
-    oncoverselected: function(event) {
-      this.coverSelected = true;
-      this.allSettings.cover = event.target.files[0];
-      let fd = new FormData();
-      fd.append("image", this.allSettings.cover);
-      this.coverPhoto = fd;
-      this.getImageBase6(this.allSettings.cover);
-    },
-    getImageBase6: function(file) {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.coverURL = reader.result;
-      };
-      reader.error = () => {
-        alert("Error !!!");
-      };
-    },
-    decodeImage(image){
-      return 'data:image/jpeg;base64,' + image;
-    },
-    saveProfilePhoto(){
-      fetch(
-        "http://localhost:5050/setProfilePhoto/" + this.userID + "/" + this.userName,
-        {
-          method: "post",
-          body: this.profilePhoto,
-        }
-      );
-    },
-    saveCoverPhoto(){
-      fetch(
-        "http://localhost:5050/setCoverPhoto/" + this.userID + "/" + this.userName,
-        {
-          method: "post",
-          body: this.coverPhoto,
-        }
-      );
-    },
-    saveSetting(){
-      fetch(
-        "http://localhost:5050/settings/" + this.userID,
-        {
-          method: "post",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(this.allSettings),
-        }
-      );
-      if(this.profileSelected) this.saveProfilePhoto();
-      if(this.coverSelected) this.saveCoverPhoto();
-    },
   },
   computed:{
     userID(){
@@ -219,28 +141,48 @@ export default {
     userName(){
       return this.$store.state.userName;
     },
-    settings(){
-      return this.$store.state.settings;
-    },
-    fullname(){
-      return this.settings.firstName + " " + this.settings.lastName
-    }
   },
-  watch:{
-    settings(val){
-      this.profileURL = this.decodeImage(val.profilePhoto);
-      this.coverURL = this.decodeImage(val.coverPhoto);
-      this.allSettings.firstName = val.firstName;
-      this.allSettings.lastName = val.lastName;
-      this.allSettings.location = val.location;
-      this.allSettings.bio = val.bio;
-      this.allSettings.birthDate = val.birthDate;
-      this.allSettings.gender = val.gender;
-
-    }
+  methods: {
+    parseJSON: function (resp) {
+        return resp.json();
+    },
+    checkStatus: function (resp) {
+        console.log('status');
+        console.log(resp);
+        if (resp.status >= 200 && resp.status < 300) {
+            console.log('good status');
+            return resp;
+        }
+        console.log('bad status');
+        return this.parseJSON(resp).then((resp) => {
+            throw resp;
+        });
+    },
+    async getSetting(){
+      try {
+          let response = await fetch( "http://localhost:8080/admin/getSetting/" + this.userID, {
+              method: "get", 
+          }).then(checkStatus)
+          .then(parseJSON);
+          console.log(response);
+          this.allSettings = response;
+      } catch (error) {
+          alert('error');
+      }
+    },
+    saveSetting(){
+      fetch(
+        "http://localhost:8080/admin/updateAdmin/" + this.userID,
+        {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(this.allSettings),
+        }
+      );
+    },
   },
   created() {
-    this.$store.dispatch("loadSettings");
+    this.getSetting();
   },
 };
 </script>

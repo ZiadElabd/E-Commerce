@@ -67,7 +67,7 @@
                       <span @click="$refs.fileinput.click()">Product photo</span>
                 </div>
                 <div class="form-group ">
-                 <b-button variant="primary" @click.prevent="addProduct" class="btn  btn-lg btn-full "> Save </b-button>
+                 <b-button variant="primary" @click.prevent="save" class="btn  btn-lg btn-full "> Save </b-button>
                 </div>
             </div>
 
@@ -86,6 +86,7 @@ export default {
       profileURL: "",
       imageSelected: false,
       product: {
+        productId:'',
         name:"",
         categoryName:'Clothing',
         description:"",
@@ -123,9 +124,27 @@ export default {
         alert("Error !!!");
       };
     },
+    save(){
+      if(this.productParam){
+        this.updateProduct();
+      } else{
+        this.addProduct();
+      }
+    },
+    updateProduct(){
+      console.log("updating product");
+      fetch(
+        "http://localhost:8080/updateProduct/" +
+          this.product.productId, + '/' + 
+          this.userID,
+        {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(this.product)
+        }
+      );
+    },
     addProduct() {
-      //console.log(this.product.image);
-      //this.product.image = this.product.image.substring(this.product.image.indexOf(',') + 1);
       console.log("adding product");
       fetch(
         "http://localhost:8080/admin/addProduct/" +

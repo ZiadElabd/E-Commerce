@@ -26,7 +26,7 @@ CREATE TABLE PRODUCT (
     price VARCHAR(30) NOT NULL,
     quantity VARCHAR(30) NOT NULL,
     discount CHAR(12),
-    image MEDIUMBLOB,
+    image LONGTEXT,
     PRIMARY KEY (productId),
     FOREIGN KEY (categoryName)
         REFERENCES CATEGORY (categoryName)

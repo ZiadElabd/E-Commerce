@@ -121,8 +121,8 @@ export default {
       };
     },
     addProduct() {
-      console.log(this.product.image);
-      this.product.image = this.product.image.substring(this.product.image.indexOf(',') + 1);
+      //console.log(this.product.image);
+      //this.product.image = this.product.image.substring(this.product.image.indexOf(',') + 1);
       console.log("adding product");
       fetch(
         "http://localhost:8080/admin/addProduct/" +

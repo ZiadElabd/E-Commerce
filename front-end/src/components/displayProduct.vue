@@ -7,14 +7,14 @@
                 </div>
                 <div class="description">
                 <div class="name">
-                        <h1>Name</h1>
-                        <p>;pskjhf kjhfj djghjf dlokjuisdkh djhdjnd jfhjf posdujfik dikyhfu diyud fijuyhdju</p>
+                        <h1>{{product.name}}</h1>
+                        <p>{{product.description}}</p>
                 </div>
 
                     
                     <div class="price">
-                        <div>Quantity: 8</div>
-                        <div>Price: 876$</div>      
+                        <div>Quantity: {{product.quantity}}</div>
+                        <div>Price: {{product.price}}$</div>      
                     </div>
                     <br>
                     <button type="button" class="btn btn-primary"  @click.prevent="addToCart">ADD TO CART</button>
@@ -31,15 +31,20 @@ export default {
     computed: {
         isAdmin(){
             return this.$store.state.role;
+        },
+        product(){
+            return this.$route.params.product;
         }
     },
-//     created() {
-//     console.log("created");
-//     bus.$on('changeCategory', (data) => {
-//       this.getProducts(data);
-//     })
-//     this.getProducts('Clothing');
-//   },
+    methods: {
+        addToCart(){
+
+        },
+    },
+    created() {
+        console.log("created");
+        console.log(this.product);
+    },
 
 }
 </script>

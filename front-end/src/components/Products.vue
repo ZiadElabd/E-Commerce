@@ -21,13 +21,13 @@
                 <div class="col-sm-3" v-for="product in products" :key="product.productId">
                     <div class="box-container"> 
                     <div class="box-img"> 
-                        <img src="../assets/market.jpg" />
+                        <img :src="product.image" />
                         <div class="box-price">${{product.price}}</div>
                     </div>
                     <h4 class="box-title">{{product.name}}</h4>  
                     <div class="box-heading text-uppercase">{{product.categoryName}}</div>
                     <div class="box-btns">
-                        <a @click="view" class="btn btn-primary text-uppercase">view</a>
+                        <a @click="view(product)" class="btn btn-primary text-uppercase">view</a>
                     </div>
                     <div class="box-id">{{product.id}}</div>
                     </div>
@@ -52,23 +52,8 @@ export default {
   },
   data() {
      return{
-       searchValue:'',
-        products:[
-       {
-         productId: 1 ,
-         categoryName: 'Clothing',
-         name: 'T-shirt',
-         price: 123 ,
-         image: '../assets/market.jpg'
-       },
-       {
-         productId: 2 ,
-         categoryName: 'Clothing',
-         name: 'T-arvt',
-         price: 123 ,
-         image: '../assets/market.jpg'
-       },
-     ],
+      searchValue:'',
+      products:[],
      }
   },
   computed: {
@@ -108,10 +93,11 @@ export default {
     test(){
         console.log(this.categoryName);
     },
-    view(){
-      this.$router.push({ name: "displayProduct"});
+    view(product){
+      this.$router.push({ name: "displayProduct" , params: { product: product } });
     },
     async getProducts(category){
+      this.products = [];
       console.log(category + 'in the products components');
       try {
           let response = await fetch( "http://localhost:8080/admin/getProducts/" + category + '/' + this.userID , {
@@ -119,6 +105,7 @@ export default {
           }).then(this.checkStatus)
           .then(this.parseJSON);
           console.log(response);
+          this.products = response;
       } catch (error) {
           alert('error');
       }

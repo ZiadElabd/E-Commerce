@@ -51,6 +51,7 @@ export default {
   methods:{
     getProductsEvent(category){
       console.log(category + ' in nav bar');
+      this.$router.push({ name: "Products" }).catch(() => {});
       bus.$emit('changeCategory', category);
     }
   },

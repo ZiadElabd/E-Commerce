@@ -54,7 +54,7 @@ public class adminService {
         String userName=trackingSystem.checkAcess(sessionID);
         if (userName==null) return false;
         User admin= (User) director.composeModel("user",dataSent);
-
+        userOperation.updateUserSettings(userName,admin);
         return false;
     }
     public boolean addAdmin(String sessionID,String dataSent){

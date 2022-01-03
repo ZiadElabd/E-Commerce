@@ -17,7 +17,7 @@ public class UserDAO_Test {
     private final Director director = new Director();
     private final passwordOperations passwordOPS = new passwordOperations();
     private UserDAO userDAO = new UserDAO();
-
+/*
     @Test
     void resetUsersTest() {
         System.out.println(userDAO.deleteAllCustomers());
@@ -99,5 +99,5 @@ public class UserDAO_Test {
         User user = (User) director.composeModel("user",dataSent);
         assertTrue(userDAO.updateUserSettings("ziad2", user));
     }
-
+*/
 }

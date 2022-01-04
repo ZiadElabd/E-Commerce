@@ -36,7 +36,7 @@ public class Commands {
     }
 
     public static String DELETE_ADMIN(){
-        return "DELETE FROM USER WHERE role != 1 AND role != 0 AND userName = ?; ";
+        return "DELETE FROM USER WHERE role != 1  AND userName = ?; ";
     }
 
     public static String DELETE_ALL_CUSTOMERS(){

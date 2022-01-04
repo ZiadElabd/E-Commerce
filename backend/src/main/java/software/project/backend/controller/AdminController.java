@@ -20,6 +20,7 @@ public class AdminController {
     @PostMapping("/addProduct/{ID}")
     public ResponseEntity<Boolean> addProductController(@RequestBody String temp,
                                                         @PathVariable("ID") String seesionID){
+        System.out.println(temp);
         if (service.addProduct(seesionID,temp)) return new ResponseEntity<>(true, HttpStatus.OK);
         return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }
@@ -27,7 +28,7 @@ public class AdminController {
     public ResponseEntity<Boolean> updateProductController(@PathVariable("productID") int productID,
                                                            @RequestBody String temp,
                                                            @PathVariable("ID") String seesionID){
-        System.out.println(productID+"--"+temp+"--"+seesionID);
+        System.out.println(temp);
         if (service.UpdateProduct(seesionID,productID,temp)) return new ResponseEntity<>(true, HttpStatus.OK);
         return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }
@@ -74,6 +75,7 @@ public class AdminController {
     @PostMapping("/addAdmin/{ID}")
     public ResponseEntity<Boolean> addAdmin(@PathVariable("ID") String seesionID,
                                             @RequestBody String temp){
+        System.out.println(temp);
         if (service.addAdmin(seesionID,temp)) return  new ResponseEntity<>(true, HttpStatus.ACCEPTED);
         return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }
@@ -86,7 +88,7 @@ public class AdminController {
     @PostMapping("/changePassword/{ID}")
     public ResponseEntity<Boolean> changePassword(@PathVariable("ID") String sessionID,
                                                   @RequestBody String temp){
-        System.out.println(sessionID+"--"+temp);
+        System.out.println(temp);
         if(service.changePassword(sessionID,temp)) return  new ResponseEntity<>(true, HttpStatus.ACCEPTED);
         return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }

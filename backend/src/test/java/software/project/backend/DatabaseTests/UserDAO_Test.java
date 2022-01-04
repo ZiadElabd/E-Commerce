@@ -17,7 +17,7 @@ public class UserDAO_Test {
     private final Director director = new Director();
     private final passwordOperations passwordOPS = new passwordOperations();
     private UserDAO userDAO = new UserDAO();
-/*
+
     @Test
     void resetUsersTest() {
         System.out.println(userDAO.deleteAllCustomers());
@@ -47,7 +47,7 @@ public class UserDAO_Test {
         String userName = "admin";
         String password = passwordOPS.passswordToHash("123456");
         User user = userDAO.checkSignIn(userName, password);
-        assertTrue(user.getRole());
+        assertEquals(user.getRole(),1);
         assertNull(user.getUserName());
         assertNull(user.getPassword());
     }
@@ -57,7 +57,7 @@ public class UserDAO_Test {
         String userName = "ziadElabd";
         String password = passwordOPS.passswordToHash("123");
         User user = userDAO.checkSignIn(userName, password);
-        assertFalse(user.getRole());
+        assertEquals(user.getRole(),0);
         assertNull(user.getUserName());
         assertNull(user.getPassword());
     }
@@ -68,7 +68,7 @@ public class UserDAO_Test {
         String password = passwordOPS.passswordToHash("123456");
         assertTrue(userDAO.changePassword(userName, password));
         User user = userDAO.checkSignIn(userName, password);
-        assertFalse(user.getRole());
+        assertEquals(user.getRole(),0);
         assertNull(user.getUserName());
         assertNull(user.getPassword());
     }
@@ -99,5 +99,5 @@ public class UserDAO_Test {
         User user = (User) director.composeModel("user",dataSent);
         assertTrue(userDAO.updateUserSettings("ziad2", user));
     }
-*/
+
 }

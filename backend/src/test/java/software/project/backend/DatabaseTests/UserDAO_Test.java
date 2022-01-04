@@ -1,6 +1,9 @@
 package software.project.backend.DatabaseTests;
 
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 import software.project.backend.Database.UserDAO;
 import software.project.backend.Model.User;
@@ -13,16 +16,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserDAO_Test {
     private final Director director = new Director();
     private final passwordOperations passwordOPS = new passwordOperations();
     private UserDAO userDAO = new UserDAO();
 
+    @Order(1)
     @Test
     void resetUsersTest() {
         System.out.println(userDAO.deleteAllCustomers());
     }
 
+    @Order(2)
     @Test
     void insertUserTest() {
         String dataSent = "{\n" +
@@ -30,18 +36,20 @@ public class UserDAO_Test {
                 "    \"firstName\":\"ziad\",\n" +
                 "    \"lastName\":\"elabd\",\n" +
                 "    \"password\":\"123\",\n" +
-                "    \"Address\":\"Alex\",\n" +
+                "    \"address\":\"Alex\",\n" +
                 "    \"phone\":\"123456\"\n" +
                 "}";
         User user = (User) director.composeModel("user",dataSent);
         assertTrue(userDAO.insertUser(user));
     }
 
+    @Order(3)
     @Test
     void isUserNameExistTest() {
         assertTrue(userDAO.isUserNameExist("ziadElabd"));
     }
 
+    @Order(4)
     @Test
     void checkSignInTest1() {
         String userName = "admin";
@@ -52,6 +60,7 @@ public class UserDAO_Test {
         assertNull(user.getPassword());
     }
 
+    @Order(4)
     @Test
     void checkSignInTest2() {
         String userName = "ziadElabd";
@@ -62,6 +71,8 @@ public class UserDAO_Test {
         assertNull(user.getPassword());
     }
 
+
+    @Order(5)
     @Test
     void changePasswordTest1() {
         String userName = "ziadElabd";
@@ -73,6 +84,7 @@ public class UserDAO_Test {
         assertNull(user.getPassword());
     }
 
+    @Order(6)
     @Test
     void getAdminsTest(){
         List<String> admins = userDAO.getAdmins();
@@ -81,11 +93,12 @@ public class UserDAO_Test {
         }
     }
 
-    @Test
-    void deleteAdminTest(){
-        assertTrue(userDAO.deleteAdmin("ziad"));
-    }
+//    @Test
+//    void deleteAdminTest(){
+//        assertTrue(userDAO.deleteAdmin("ziad"));
+//    }
 
+    @Order(7)
     @Test
     void updateUserSettingsTest(){
         String dataSent = "{\n" +
@@ -93,11 +106,11 @@ public class UserDAO_Test {
                 "    \"firstName\":\"zezo\",\n" +
                 "    \"lastName\":\"elabd\",\n" +
                 "    \"password\":\"123\",\n" +
-                "    \"Address\":\"Alex\",\n" +
+                "    \"address\":\"Alex\",\n" +
                 "    \"phone\":\"123456\"\n" +
                 "}";
         User user = (User) director.composeModel("user",dataSent);
-        assertTrue(userDAO.updateUserSettings("ziad2", user));
+        assertTrue(userDAO.updateUserSettings("ziadElabd", user));
     }
 
 }

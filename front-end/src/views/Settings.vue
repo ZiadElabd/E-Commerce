@@ -64,24 +64,10 @@
     <tbody class="list">
       <tr v-for="admin in admins" :key="admin">
         <td class="name">{{admin}}</td>
-        <td class="remove" ><i class="fa fa-trash" aria-hidden="true"></i></td>
+        <td @click="deleteAdmin(admin)" class="remove" ><i class="fa fa-trash" aria-hidden="true"></i></td>
       </tr>
-      
     </tbody>
   </table>
-  <table>
-    <td class="name">
-     <input
-              type="text"
-              class="form-control"
-              v-model="newAdmin"
-            />
-    </td>
-    <td class="add">
-      <i class="fa fa-plus" aria-hidden="true"></i>
-    </td>
-  </table>
-  
  
 </div>
           <div class="save_and_cancel">

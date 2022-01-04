@@ -58,10 +58,10 @@
   <table>
     <thead>
       <tr>
-        <th class="sort" data-sort="name">Admins</th>        
+        <th v-if="role === 1" class="sort" data-sort="name">Admins</th>
       </tr>
     </thead>
-    <tbody class="list">
+    <tbody v-if="role === 1" class="list">
       <tr v-for="admin in admins" :key="admin">
         <td class="name">{{admin}}</td>
         <td @click="deleteAdmin(admin)" class="remove" ><i class="fa fa-trash" aria-hidden="true"></i></td>
@@ -77,7 +77,7 @@
            </div>
            <div>
               <router-link to="/ChangePassword">Change Password</router-link>
-              <router-link to="/admins">Admins</router-link>
+              <router-link v-if="role === 1" to="/admins">Admins</router-link>
            </div>
           </div>
         </form>
@@ -114,6 +114,9 @@ export default {
     },
     userName(){
       return this.$store.state.userName;
+    },
+    role(){
+      return this.$store.state.role;
     },
   },
   methods: {
@@ -160,7 +163,7 @@ export default {
     async deleteAdmin(userName){
       this.admins = this.admins.filter(item => item !== userName);
       try {
-          fetch( "http://localhost:8080/admin/" + this.userID + '/' + userName, {
+          fetch( "http://localhost:8080/admin/deleteAdmin/" + this.userID + '/' + userName, {
               method: "delete", 
           })
       } catch (error) {

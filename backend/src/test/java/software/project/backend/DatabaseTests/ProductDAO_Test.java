@@ -65,11 +65,5 @@ public class ProductDAO_Test {
         }
     }
 
-    @Order(3)
-    @Test
-    void deleteProductTest() {
-        assertTrue(productDAO.deleteProduct(0));
-
-    }
 
 }

@@ -62,22 +62,9 @@
       </tr>
     </thead>
     <tbody class="list">
-      <tr>
-        <td class="id" style="display:none;">1</td>
-        <td class="name">Jonny</td>
-        <td class="remove"><i class="fa fa-trash" aria-hidden="true"></i></td>
-      </tr>
-      <tr>
-        <td class="id" style="display:none;">2</td>
-        <td class="name">Jonas</td>
-    
-        <td class="remove"><i class="fa fa-trash" aria-hidden="true"></i></td>
-      </tr>
-      <tr>
-        <td class="id" style="display:none;">3</td>
-        <td class="name">Gustaf</td>
-      
-        <td class="remove"><i class="fa fa-trash" aria-hidden="true"></i></td>
+      <tr v-for="admin in admins" :key="admin">
+        <td class="name">{{admin}}</td>
+        <td class="remove" ><i class="fa fa-trash" aria-hidden="true"></i></td>
       </tr>
       
     </tbody>
@@ -87,8 +74,7 @@
      <input
               type="text"
               class="form-control"
-              id="address"
-              v-model="allSettings.address"
+              v-model="newAdmin"
             />
     </td>
     <td class="add">
@@ -101,7 +87,7 @@
           <div class="save_and_cancel">
            <div>
               <button type="button" class="btn btn-primary"  @click.prevent="saveSetting">Save</button>
-            <button type="button" class="btn btn-outline-dark">Cancel</button>
+            <button type="button" class="btn btn-outline-dark" @click="cancel">Cancel</button>
            </div>
            <div>
               <router-link to="/ChangePassword">Change Password</router-link>
@@ -125,6 +111,7 @@ export default {
   },
   data() {
     return {
+      newAdmin:'',
       allSettings: {
         firstName:"",
         lastName:"", 
@@ -261,6 +248,16 @@ select {
 }
 i{
   cursor: pointer;
+}
+td{
+  width: 300px;
+}
+td input{
+  width: 200px;
+}
+.add[data-v-53cc84dd] {
+    display: block;
+    margin-left: 80px;
 }
 
 </style>

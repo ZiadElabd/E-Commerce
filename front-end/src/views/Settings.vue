@@ -158,6 +158,7 @@ export default {
       }
     },
     async deleteAdmin(userName){
+      this.admins = this.admins.filter(item => item !== userName);
       try {
           fetch( "http://localhost:8080/admin/" + this.userID + '/' + userName, {
               method: "delete", 
@@ -177,6 +178,9 @@ export default {
       );
       this.$router.push({ name: "Products"});
     },
+    cancel(){
+      this.$router.push({ name: "Products"});
+    }
   },
   created() {
     this.getSetting();

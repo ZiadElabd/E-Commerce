@@ -60,7 +60,7 @@ public class adminService {
         if (userName==null) return false;
         User admin= (User) director.composeModel("user",dataSent);
         userOperation.updateUserSettings(userName,admin);
-        return false;
+        return true;
     }
     public boolean addAdmin(String sessionID,String dataSent){
         String userName=trackingSystem.checkAcess(sessionID);

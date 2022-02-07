@@ -72,5 +72,9 @@ public class Commands {
         return "DELETE FROM PRODUCT " +
                 "WHERE productId = ?";
     }
+    
+    public static String searchWithName(String text) {
+        return "SELECT * FROM product AS B WHERE B.name LIKE  '%" + text + "%' AND B.categoryName=? ";
+    }
 
 }

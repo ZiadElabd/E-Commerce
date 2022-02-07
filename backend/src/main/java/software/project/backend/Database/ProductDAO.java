@@ -80,5 +80,11 @@ public class ProductDAO {
 		}
 		return false ;
 	}
+	
+	public List<Product> searchWithName(String title, String cateogry) {
+		List<Product> res = (List<Product>) jdbcTemplate.query(Commands.searchWithName(title),
+				new BeanPropertyRowMapper(Product.class), cateogry);
+		return res;
+	}
 
 }

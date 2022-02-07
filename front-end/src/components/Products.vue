@@ -22,12 +22,6 @@
           
       </div>
       <div class="searchBtn">
-        <select id="cars" v-model="searchType" @change="onChange($event)">
-          <option value="Title">Title</option>
-          <option value="ISBN">ISBN</option>
-          <option value="Author">Author</option>
-          <option value="Publisher">Publisher</option>
-        </select>
         <b-button variant="primary" @click="search" class="btn  btn-lg btn-full "> Search </b-button>
       </div>
 
@@ -224,13 +218,13 @@ a{
   display: flex;
 }
 .searchBtn{
-  width: 400px;
+  width: 150px;
   margin-top: 79px;
   margin-left: 20px;
   display: flex;
 }
 .btn{
-  line-height: 1.2;
+  line-height: 1;
 }
 select{
   width: 180px;

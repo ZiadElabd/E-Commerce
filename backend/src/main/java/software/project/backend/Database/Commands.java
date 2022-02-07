@@ -76,5 +76,30 @@ public class Commands {
     public static String searchWithName(String text) {
         return "SELECT * FROM product AS B WHERE B.name LIKE  '%" + text + "%' AND B.categoryName=? ";
     }
+    
+    public static String getCart() {
+        return " SELECT B.ISBN , B.title , C.noOfCopies , B.price, B.publicationYear,B.threshold,B.publisherName,B.image,B.categoryName FROM Book AS B JOIN CheckOut AS C ON C.ISBN = B.ISBN WHERE C.userName = ? ";
+    }
+
+    public static String insertToCart() {
+        return "INSERT INTO Cart (userName ,productId , noOfCopies) VALUES (?,?,?)";
+    }
+
+    public static String isInCart() {
+        return "SELECT Count(*) FROM Cart AS C WHERE C.userName = ? AND C.productId = ? ";
+    }
+
+    public static String updateCart() {
+        return "UPDATE Cart AS C SET C.noOfCopies = ? WHERE C.userName = ? AND C.productId = ? ";
+    }
+    
+    public static String removeFromCart(){
+        return "DELETE FROM CART WHERE productId = ?  AND userName = ?; ";
+    }
+    
+    public static String clearCart(){
+        return "DELETE FROM CART WHERE userName = ?; ";
+    }
+
 
 }

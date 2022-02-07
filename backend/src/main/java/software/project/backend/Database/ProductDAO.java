@@ -1,5 +1,6 @@
 package software.project.backend.Database;
 
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -86,5 +87,51 @@ public class ProductDAO {
 				new BeanPropertyRowMapper(Product.class), cateogry);
 		return res;
 	}
+	
+	public boolean updateCart(String userName, int productId, int newCopies) {
+		jdbcTemplate.update(Commands.updateCart(), newCopies ,userName, productId);
+		return true;
+	}
+
+	public boolean isInCart(String userName, int productId) {
+		try {
+			Integer n = jdbcTemplate.queryForObject(Commands.isInCart(),
+					Integer.class,
+					userName, productId);
+			return (n != null) && (n > 0);
+		} catch (IncorrectResultSizeDataAccessException e) {
+			System.out.println("Exception in checking userName");
+			return false;
+		}
+	}
+	
+	public boolean insertToCart(String userName, int productId, int noOpCopies) {
+		 jdbcTemplate.update(Commands.insertToCart(), userName, productId, noOpCopies);
+		 return true;
+	}
+	
+	public boolean deleteFromCart(int productId, String userName) {
+
+		int result = jdbcTemplate.update(Commands.removeFromCart(), productId, userName);
+
+		if (result > 0) {
+			System.out.println("A row has been deleted");
+			return true ;
+		}
+		return false ;
+	}
+	
+	public boolean clearCart(String userName) {
+
+		int result = jdbcTemplate.update(Commands.clearCart(), userName);
+
+		if (result > 0) {
+			System.out.println("Cart is Empty");
+			return true ;
+		}
+		return false ;
+	}
+	
+	
 
 }

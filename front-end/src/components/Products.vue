@@ -6,7 +6,10 @@
        <router-link to="/newProduct" > <span>+</span></router-link>
      
     </div>
-     <!-- <div class="search">
+    
+  <div class="container">
+         <div class="searchContent">
+     <div class="search">
           <form class="form-inline my-2 my-lg-0 ">
             <input class="form-control mr-sm-2" 
             type="search"
@@ -14,9 +17,21 @@
               @keyup="filter"
               placeholder="Search using Product name "
                aria-label="Search">
+              
           </form>
-      </div> -->
-  <div class="container">
+          
+      </div>
+      <div class="searchBtn">
+        <select id="cars" v-model="searchType" @change="onChange($event)">
+          <option value="Title">Title</option>
+          <option value="ISBN">ISBN</option>
+          <option value="Author">Author</option>
+          <option value="Publisher">Publisher</option>
+        </select>
+        <b-button variant="primary" @click="search" class="btn  btn-lg btn-full "> Search </b-button>
+      </div>
+
+    </div>
         <div class="row">
                 <div class="col-sm-3" v-for="product in products" :key="product.productId">
                     <div class="box-container"> 
@@ -202,7 +217,29 @@ a{
   color: #FFF;
 }
 .search{
-  margin-top: 53px;
+  margin-top: 80px;
+  width: 100%;
+}
+.searchContent{
+  display: flex;
+}
+.searchBtn{
+  width: 400px;
+  margin-top: 79px;
+  margin-left: 20px;
+  display: flex;
+}
+.btn{
+  line-height: 1.2;
+}
+select{
+  width: 180px;
+  margin-right: 20px;
+  border: 1px solid #999 ;
+  border-radius: 5px;
+  color: #959393;
+  outline: none;
+  height: 39px;
 }
 
 </style>

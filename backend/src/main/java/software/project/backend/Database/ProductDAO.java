@@ -4,6 +4,7 @@ import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import software.project.backend.Model.Cart;
 import software.project.backend.Model.Product;
 
 import java.util.List;
@@ -130,6 +131,10 @@ public class ProductDAO {
 			return true ;
 		}
 		return false ;
+	}
+	
+	public List<Cart> getCart(String userName) {
+		return jdbcTemplate.query(Commands.getCart(), new BeanPropertyRowMapper(Cart.class), userName);
 	}
 	
 	

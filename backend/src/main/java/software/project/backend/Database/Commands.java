@@ -78,7 +78,7 @@ public class Commands {
     }
     
     public static String getCart() {
-        return " SELECT B.ISBN , B.title , C.noOfCopies , B.price, B.publicationYear,B.threshold,B.publisherName,B.image,B.categoryName FROM Book AS B JOIN CheckOut AS C ON C.ISBN = B.ISBN WHERE C.userName = ? ";
+        return " SELECT B.name , B.description, B.price, B.quantity , C.noOfCopies  FROM Book AS B JOIN Cart AS C ON C.productId = B.productId WHERE C.userName = ? ";
     }
 
     public static String insertToCart() {

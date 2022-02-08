@@ -1,237 +1,472 @@
 <template>
-<div>
-     <Navbar />
-  <div class="container">
-       <div class="shopping-cart">
-            <div class="column-labels">
-                <label class="product-image">Image</label>
-                <label class="product-details">Product</label>
-                <label class="product-price">Price</label>
-                <label class="product-quantity">Quantity</label>
-                <label class="product-removal">Remove</label>
-                <label class="product-line-price">Total</label>
-            </div>
+  <div>
+    <Navbar />
+      <div class="shopping-cart">
+        <div id="app">
 
-            <div class="product">
-                <div class="product-image">
-                <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">
-                </div>
-                <div class="product-details">
-                <div class="product-title">Dingo Dog Bones</div>
-                <p class="product-description">The best dog bones of all time. Holy crap. Your dog will be begging for these things! I got curious once and ate one myself. I'm a fan.</p>
-                </div>
-                <div class="product-price">12.99</div>
-                <div class="product-quantity">
-                <input type="number" value="2" min="1">
-                </div>
-                <div class="product-removal">
-                <button class="remove-product">
-                    Remove
-                </button>
-                </div>
-                <div class="product-line-price">25.98</div>
-            </div>
+  <!-- Product List -->
+  <section class="container">
+    <div v-if="products.length > 0">
+      <ul class="products">
+      <li class="row" v-for="(product, index) in products" :key="index">
+        <div class="col left">
+          <div class="thumbnail">
+            <a href="#">
+              <img :src="product.image" :alt="product.name" />
+            </a>
+          </div>
+          <div class="detail">
+            <div class="name"><a href="#">{{ product.name }}</a></div>
+            <div class="description">{{ product.description }}</div>
+            <div class="price">{{ product.price  }}</div>
+          </div>
+        </div>
 
-            
+        <div class="col right">
+          <div class="quantity">
+            <input type="number" class="quantity" step="1" :value="product.quantity"  @blur="checkQuantity(index, $event)" />
+          </div>
+          
+          <div class="remove">
+            <span  variant="danger">  <b-button>remove</b-button></span>
+          </div>
+        </div>
+      </li>
+    </ul>
+    </div>
+    <div v-else class="empty-product">
+      <h3>There are no products in your cart.</h3>
+      <button>Shopping now</button>
+    </div>
+  </section>
+  <!-- End Product List -->
+  
+  <!-- Summary -->
+  <section class="container" v-if="products.length > 0">
 
-            <div class="totals">
-                <div class="totals-item">
-                <label>Subtotal</label>
-                <div class="totals-value" id="cart-subtotal">71.97</div>
-                </div>
-                <div class="totals-item">
-                <label>Tax (5%)</label>
-                <div class="totals-value" id="cart-tax">3.60</div>
-                </div>
-                <div class="totals-item">
-                <label>Shipping</label>
-                <div class="totals-value" id="cart-shipping">15.00</div>
-                </div>
-                <div class="totals-item totals-item-total">
-                <label>Grand Total</label>
-                <div class="totals-value" id="cart-total">90.57</div>
-                </div>
-            </div>
-                
-                <button class="checkout">Checkout</button>
+    <div class="summary">
+      <ul>
+        <li>Subtotal <span>{{ subTotal | currencyFormatted }}</span></li>
+        <li v-if="discount > 0">Discount <span>{{ discountPrice | currencyFormatted }}</span></li>
+        <li>Tax <span>{{ tax | currencyFormatted }}</span></li>
+        <li class="total">Total <span>{{ totalPrice | currencyFormatted }}</span></li>
+      </ul>
+    </div>
 
-            </div>
-  </div>
+    <div class="checkout">
+      <button type="button">Check Out</button>
+    </div>
+  </section>
+  <!-- End Summary -->
 </div>
+      </div>
+    </div>
 </template>
 <script>
 import Navbar from "../components/nbar.vue";
+
 export default {
-    date(){
+  components:{
+        Navbar
     },
-     components: {
-    Navbar,
-  },
-  mounted:{
+  data() {
     
-}
-}
+    return{
+        products: [
+      {
+        image: "https://via.placeholder.com/200x150",
+        name: "PRODUCT ITEM NUMBER 1",
+        description: "Description for product item number 1",
+        price: 5.99,
+        quantity: 2
+      },
+      {
+        image: "https://via.placeholder.com/200x150",
+        name: "PRODUCT ITEM NUMBER 2",
+        description: "Description for product item number 1",
+        price: 9.99,
+        quantity: 1
+      }
+    ],
+    tax: 5,
+    }
+  },
+  mounted: {},
+  computed: {
+    isAdmin() {
+      return this.$store.state.role;
+    },
+    product() {
+      return this.$route.params.product;
+    },
+    userID() {
+      return this.$store.state.userID;
+    },
+  },
+  methods: {
+    checkQuantity: function(i,e){
+      console.log("bluuuuuur" + i + e) ;
+    },
+    parseJSON: function (resp) {
+      return resp.json();
+    },
+    checkStatus: function (resp) {
+      console.log("status");
+      console.log(resp);
+      if (resp.status >= 200 && resp.status < 300) {
+        console.log("good status");
+        return resp;
+      }
+      console.log("bad status");
+      return this.parseJSON(resp).then((resp) => {
+        throw resp;
+      });
+    },
+    deleteCart() {
+      try {
+        fetch(
+          "http://localhost:8080/user/deleteCart/" + this.userID,
+          {
+            method: "delete",
+          }
+        );
+      } catch (error) {
+        alert("error");
+      }
+      this.products = [];
+    },
+    deleteFromCart(product) {
+      try {
+        fetch(
+          "http://localhost:8080/user/deleteFromCart/" +
+            this.userID +
+            "/" +
+            product.isbn,
+          {
+            method: "delete",
+          }
+        );
+      } catch (error) {
+        alert("error");
+      }
+    },
+    async getCart() {
+      try {
+        let response = await fetch(
+          "http://localhost:8080/user/getCart/" + this.userID,
+          {
+            method: "get",
+          }
+        )
+          .then(this.checkStatus)
+          .then(this.parseJSON);
+        console.log(response);
+        this.products =response;
+      } catch (error) {
+        alert("error");
+      }
+    },
+    incrementQuantity(product) {
+      console.log(product.noOfCopies);
+      fetch("http://localhost:8080/user/updateCart/" + this.userID, {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          isbn: this.product.isbn,
+          noOfCopies: product.noOfCopies,
+        }),
+      });
+    },
+  },
+  created() {
+    this.getCart();
+  },
+};
+
 </script>
 <style scoped>
-.product-image {
-  float: left;
-  width: 20%;
+.shopping-cart{
+  margin-top: 100px;
+}
+* {
+  box-sizing: border-box;
 }
 
-.product-details {
-  float: left;
-  width: 37%;
+html {
+  font-size: 12px;
 }
 
-.product-price {
-  float: left;
-  width: 12%;
-}
-
-.product-quantity {
-  float: left;
-  width: 10%;
-}
-
-.product-removal {
-  float: left;
-  width: 9%;
-}
-
-.product-line-price {
-  float: left;
-  width: 12%;
-  text-align: right;
-}
-
-/* This is used as the traditional .clearfix class */
-.group:before, .shopping-cart:before, .column-labels:before, .product:before, .totals-item:before,
-.group:after,
-.shopping-cart:after,
-.column-labels:after,
-.product:after,
-.totals-item:after {
-  content: '';
-  display: table;
-}
-.shopping-cart[data-v-c028c34c] {
-    margin-top: 73px;
-}
-.group:after, .shopping-cart:after, .column-labels:after, .product:after, .totals-item:after {
-  clear: both;
-}
-
-.group, .shopping-cart, .column-labels, .product, .totals-item {
-  zoom: 1;
-}
-
-/* Apply clearfix in a few places */
-/* Apply dollar signs */
-.product .product-price:before, .product .product-line-price:before, .totals-value:before {
-  content: '$';
-}
-
-/* Body/Header stuff */
 body {
-  padding: 0px 30px 30px 20px;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 100;
+  margin: 20px 0;
+  padding: 0;
+  font-family: arial, sans-serif;
+  overflow: scroll;
 }
 
-h1 {
-  font-weight: 100;
+img {
+  max-width: 100%;
+  vertical-align: middle;
+  border-radius: 4px;
 }
 
-label {
-  color: #aaa;
+a {
+  text-decoration: none;
+  color: #333333;
 }
 
-.shopping-cart {
-  margin-top: -45px;
+a:hover {
+  color: #f58551;
 }
 
-/* Column headers */
-.column-labels label {
-  padding-bottom: 15px;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #eee;
-}
-.column-labels .product-image, .column-labels .product-details, .column-labels .product-removal {
-  text-indent: -9999px;
+button {
+  background-color: #16cc9b;
+  border: 2px solid #16cc9b;
+  color: #ffffff;
+  transition: all 0.25s linear;
+  cursor: pointer;
 }
 
-/* Product entries */
-.product {
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
+button::after {
+  position: relative;
+  right: 0;
+  content: " \276f";
+  transition: all 0.15s linear;
 }
-.product .product-image {
+
+button:hover {
+  background-color: #f58551;
+  border-color: #f58551;
+}
+
+button:hover::after {
+  right: -5px;
+}
+
+button:focus {
+  outline: none;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+input {
+  transition: all 0.25s linear;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input {
+  outline: none;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  overflow: auto;
+}
+
+
+/* --- PRODUCT LIST --- */
+.products {
+  border-top: 1px solid #ddd;
+}
+
+.products > li {
+  padding: 1rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.row {
+  position: relative;
+  overflow: auto;
+  width: 100%;
+}
+
+.col,
+.quantity,
+.remove {
+  float: left;
+}
+
+.col.left {
+  width: 70%;
+}
+
+.col.right {
+  width: 30%;
+  position: absolute;
+  right: 0;
+  top: calc(50% - 30px);
+}
+
+.detail {
+  padding: 0 0.5rem;
+  line-height: 2.2rem;
+}
+
+.detail .name {
+  font-size: 1.2rem;
+}
+
+.detail .description {
+  color: #7d7d7d;
+  font-size: 1rem;
+}
+
+.detail .price {
+  font-size: 1.5rem;
+}
+
+.quantity,
+.remove {
+  width: 50%;
   text-align: center;
 }
-.product .product-image img {
-  width: 100px;
-}
-.product .product-details .product-title {
-  margin-right: 20px;
-  font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
-}
-.product .product-details .product-description {
-  margin: 5px 20px 5px 0;
-  line-height: 1.4em;
-}
-.product .product-quantity input {
-  width: 40px;
-}
-.product .remove-product {
-  border: 0;
-  padding: 4px 8px;
-  background-color: #c66;
-  color: #fff;
-  font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
-  font-size: 12px;
-  border-radius: 3px;
-}
-.product .remove-product:hover {
-  background-color: #a44;
+
+
+
+.quantity > input {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  position: relative;
+  left: calc(50% - 30px);
+  background: #fff;
+  border: 2px solid #ddd;
+  color: #7f7f7f;
+  text-align: center;
+  font: 600 1.5rem Helvetica, Arial, sans-serif;
 }
 
-/* Totals section */
-.totals .totals-item {
-  float: right;
-  clear: both;
-  width: 100%;
-  margin-bottom: 10px;
+.quantity > input:hover,
+.quantity > input:focus {
+  border-color: #f58551;
 }
-.totals .totals-item label {
-  float: left;
-  clear: both;
-  width: 79%;
+
+.close {
+  fill: #7d7d7d;
+  transition: color 150ms linear, background-color 150ms linear,
+    fill 150ms linear, 150ms opacity linear;
+  cursor: pointer;
+}
+
+.close:hover {
+  fill: #f58551;
+}
+
+/* --- SUMMARY --- */
+
+
+.summary {
+  font-size: 1.2rem;
   text-align: right;
 }
-.totals .totals-item .totals-value {
-  float: right;
-  width: 21%;
-  text-align: right;
+
+.summary ul li {
+  padding: 0.5rem 0;
 }
-.totals .totals-item-total {
-  font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
+
+.summary ul li span {
+  display: inline-block;
+  width: 30%;
+}
+
+.summary ul li.total {
+  font-weight: bold;
 }
 
 .checkout {
-  float: right;
-  border: 0;
-  margin-top: 20px;
-  padding: 6px 25px;
-  background-color: #6b6;
-  color: #fff;
-  font-size: 25px;
-  border-radius: 3px;
+  text-align: right;
 }
 
-.checkout:hover {
-  background-color: #494;
+.checkout > button {
+  font-size: 1.2rem;
+  padding: 0.8rem 2.8rem;
+  border-radius: 1.5rem;
 }
+
+.empty-product {
+  text-align: center;
+}
+
+.empty-product > button {
+  font-size: 1.3rem;
+  padding: 10px 30px;
+  border-radius: 5px;
+}
+.remove button[data-v-c028c34c] {
+  background-color: #e14646;
+  border: 0;
+}
+
+
+/* --- SMALL SCREEN --- */
+@media all and (max-width: 599px) {
+  .thumbnail img {
+    display: none;
+  }
+
+  .quantity > input {
+    width: 40px;
+    height: 40px;
+    left: calc(50% - 20px);
+  }
+
+  .remove svg {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* --- MEDIUM & LARGE SCREEN --- */
+@media all and (min-width: 600px) {
+  html {
+    font-size: 14px;
+  }
+
+  .container {
+    width: 75%;
+    max-width: 960px;
+  }
+
+  .thumbnail,
+  .detail {
+    float: left;
+  }
+
+  .thumbnail {
+    width: 35%;
+  }
+
+  .detail {
+    width: 65%;
+  }
+
+  .promotion,
+  .summary {
+    width: 50%;
+  }
+
+  .checkout {
+    width: 100%;
+  }
+
+  .checkout,
+  .summary {
+    text-align: right;
+  }
+}
+
+
 
 
 

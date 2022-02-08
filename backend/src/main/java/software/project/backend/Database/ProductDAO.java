@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import software.project.backend.Model.Cart;
 import software.project.backend.Model.Product;
+import software.project.backend.Model.order;
 
 import java.util.List;
 
@@ -136,6 +137,27 @@ public class ProductDAO {
 	public List<Cart> getCart(String userName) {
 		return jdbcTemplate.query(Commands.getCart(), new BeanPropertyRowMapper(Cart.class), userName);
 	}
+	
+	public List<order> getOrders() {
+		return jdbcTemplate.query(Commands.getOrders(), new BeanPropertyRowMapper(order.class));
+	}
+	
+	public boolean insertOrder(order o) {
+
+		int result = jdbcTemplate.update(Commands.INSERT_ORDER(),
+				o.getNumOfItems(),
+				o.getDate(),
+				o.getTotalPrice());
+
+		if (result > 0) {
+			System.out.println("A new product has been inserted.");
+			return true ;
+		}
+		return false ;
+	}
+
+	
+	
 	
 	
 

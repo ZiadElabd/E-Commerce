@@ -24,7 +24,7 @@
 
         <div class="col right">
           <div class="quantity">
-            <input type="number" class="quantity" step="1" :value="product.quantity"  @blur="checkQuantity(index, $event)" />
+            <input type="number" class="quantity" step="1" v-model="product.noOfCopies" @blur="checkQuantity(index, $event)" />
           </div>
           
           <div class="remove">
@@ -91,6 +91,7 @@ export default {
   methods: {
     checkQuantity: function(i,e){
       console.log("bluuuuuur" + i + e) ;
+      this.updateQuantity(this.products[i]);
     },
     parseJSON: function (resp) {
       return resp.json();
@@ -148,13 +149,13 @@ export default {
           alert('error');
       }
     },
-    incrementQuantity(product) {
+    updateQuantity(product) {
       console.log(product.noOfCopies);
       fetch("http://localhost:8080/user/updateCart/" + this.userID, {
-        method: "post",
+        method: "put",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          isbn: this.product.productId,
+          productID: product.productId,
           noOfCopies: product.noOfCopies,
         }),
       });

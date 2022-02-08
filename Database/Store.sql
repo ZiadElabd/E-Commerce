@@ -47,6 +47,18 @@ CREATE TABLE CART (
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
+
+CREATE TABLE Orders (
+    orderId INTEGER AUTO_INCREMENT NOT NULL,
+    total_price double  NOT NULL,
+    noOfItems INTEGER NOT NULL,
+    date VARCHAR(30) NOT NULL,
+    PRIMARY KEY (orderId),
+    FOREIGN KEY (userName)
+        REFERENCES USER (userName)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
             
 INSERT INTO CATEGORY 
 VALUES 

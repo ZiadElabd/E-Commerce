@@ -78,7 +78,7 @@ public class Commands {
     }
     
     public static String getCart() {
-        return " SELECT B.productId,B.name , B.description, B.price , C.noOfCopies ,B.image  FROM Book AS B JOIN Cart AS C ON C.productId = B.productId WHERE C.userName = ? ";
+        return " SELECT B.productId,B.name , B.description, B.price , C.noOfCopies ,B.image  FROM PRODUCT AS B JOIN CART  AS C ON C.productId = B.productId WHERE C.userName = ? ";
     }
 
     public static String insertToCart() {
@@ -99,6 +99,16 @@ public class Commands {
     
     public static String clearCart(){
         return "DELETE FROM CART WHERE userName = ?; ";
+    }
+    
+    public static String getOrders() {
+        return " SELECT * from Orders";
+    }
+    
+    public static String INSERT_ORDER(){
+        return "INSERT INTO ORDERS " +
+                "(noOfItems, date, totalPrice) " +
+                "VALUES (?, ?, ?)";
     }
 
 

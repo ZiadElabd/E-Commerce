@@ -31,15 +31,15 @@ public class Cart implements Imodel {
 	        this.price = price;
 	    }
 
-	    public int getQuantity() {
-	        return noOfCopies;
-	    }
+	public int getNoOfCopies() {
+		return noOfCopies;
+	}
 
-	    public void setQuantity(int quantity) {
-	        this.noOfCopies = quantity;
-	    }
+	public void setNoOfCopies(int noOfCopies) {
+		this.noOfCopies = noOfCopies;
+	}
 
-	    public String getImage() {
+	public String getImage() {
 	        return image;
 	    }
 

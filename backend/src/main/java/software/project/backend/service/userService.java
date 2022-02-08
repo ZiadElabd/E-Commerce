@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import software.project.backend.Database.ProductDAO;
 import software.project.backend.Database.UserDAO;
+import software.project.backend.Model.Cart;
 import software.project.backend.Model.Product;
 import software.project.backend.Model.User;
 import software.project.backend.Model.builder.Director;
@@ -59,10 +60,10 @@ public class userService {
         if (userName==null) return false;
         return productDAO.clearCart(userName);
     }
-    public List<Product> getCart(String sessionID){
+    public List<Cart> getCart(String sessionID){
         String userName=trackingSystem.checkAcess(sessionID);
         if (userName==null) return null;
-        return null;
+        return productDAO.getCart(userName);
     }
     public boolean updateCart(String sessionID,String dataSent){
         String userName=trackingSystem.checkAcess(sessionID);

@@ -39,8 +39,6 @@ public class Cart implements Imodel {
 	        this.noOfCopies = quantity;
 	    }
 
-	
-
 	    public String getImage() {
 	        return image;
 	    }

@@ -3,6 +3,7 @@ package software.project.backend.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import software.project.backend.Model.Cart;
 import software.project.backend.Model.Product;
 import software.project.backend.sercuirty.Singelton;
 import software.project.backend.service.userService;
@@ -42,8 +43,8 @@ public class UserController {
         return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
     }
     @GetMapping("/getCart/{ID}")
-    public ResponseEntity<List<Product>> getCart(@PathVariable("ID") String sessionID){
-        List<Product> products=service.getCart(sessionID);
+    public ResponseEntity<List<Cart>> getCart(@PathVariable("ID") String sessionID){
+        List<Cart> products=service.getCart(sessionID);
         if(products!=null) return  new ResponseEntity<>(products, HttpStatus.ACCEPTED);
         return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
     }

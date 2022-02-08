@@ -63,6 +63,7 @@ export default {
     return{
         searchValue:'',
         products:[],
+        category:'Science'
     }
   },
   computed: {
@@ -109,6 +110,28 @@ export default {
         this.$router.push({ name: "displayProduct" , params: { product: product } });
       }
     },
+    async search(){
+      console.log('search');
+        try {
+          let t = 'user';
+          if(this.isAdmin){
+            t = 'admin';
+          }
+          let response = await fetch( "http://localhost:8080/"+ t + "/search/" + this.userID, {
+              method: "post",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                categoryName: this.category,
+                searchText:this.searchValue
+              }) 
+          }).then(this.checkStatus)
+          .then(this.parseJSON);
+          console.log(response);
+          this.products = response;
+      } catch (error) {
+          alert('error');
+      }
+    },
     async getProducts(category){
       this.products = [];
       console.log(category + 'in the products components');
@@ -128,6 +151,7 @@ export default {
     console.log("created");
     bus.$on('changeCategory', (data) => {
       this.getProducts(data);
+      this.category = data;
     })
     this.getProducts('Clothing');
   },

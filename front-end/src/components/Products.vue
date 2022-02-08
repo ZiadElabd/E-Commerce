@@ -112,10 +112,11 @@ export default {
     },
     async search(){
       console.log('search');
+      var t = "user";
         try {
-          let t = 'user';
+          
           if(this.isAdmin){
-            t = 'admin';
+            t = "admin";
           }
           let response = await fetch( "http://localhost:8080/"+ t + "/search/" + this.userID, {
               method: "post",

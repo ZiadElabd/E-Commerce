@@ -82,7 +82,7 @@ public class Commands {
     }
 
     public static String insertToCart() {
-        return "INSERT INTO Cart (userName ,productId , noOfCopies) VALUES (?,?,?)";
+        return "INSERT INTO CART (userName ,productId , noOfCopies) VALUES (?,?,?)";
     }
 
     public static String isInCart() {

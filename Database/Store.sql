@@ -9,7 +9,7 @@ CREATE TABLE USER (
     address VARCHAR(150) NOT NULL,
     phone CHAR(12),
     role TINYINT(1),
-    PRIMARY KEY (userId)
+    PRIMARY KEY (userId, userName)
 );
 
 CREATE TABLE CATEGORY (
@@ -19,7 +19,7 @@ CREATE TABLE CATEGORY (
 );
             
 CREATE TABLE PRODUCT (
-    productId INTEGER AUTO_INCREMENT NOT NULL,
+    productId INT AUTO_INCREMENT NOT NULL,
     CategoryName VARCHAR(30) NOT NULL,
     name VARCHAR(30) NOT NULL,
     description VARCHAR(100) NOT NULL,
@@ -35,11 +35,11 @@ CREATE TABLE PRODUCT (
 );
 
 CREATE TABLE CART (
-	userId INT NOT NULL,
+	userName VARCHAR(30) NOT NULL,
 	productId INT NOT NULL,
-	PRIMARY KEY (userId, productId),
-	FOREIGN KEY (userId)
-		REFERENCES USER (userId)
+	PRIMARY KEY (userName, productId),
+	FOREIGN KEY (userName)
+		REFERENCES USER (userName)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 	FOREIGN KEY (productId)

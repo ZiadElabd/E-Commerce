@@ -28,7 +28,7 @@
           </div>
           
           <div class="remove">
-            <span  variant="danger">  <b-button>remove</b-button></span>
+            <span  variant="danger" @click="deleteFromCart(product)">  <b-button>remove</b-button></span>
           </div>
         </div>
       </li>
@@ -72,22 +72,7 @@ export default {
   data() {
     
     return{
-        products: [
-      {
-        image: "https://via.placeholder.com/200x150",
-        name: "PRODUCT ITEM NUMBER 1",
-        description: "Description for product item number 1",
-        price: 5.99,
-        quantity: 2
-      },
-      {
-        image: "https://via.placeholder.com/200x150",
-        name: "PRODUCT ITEM NUMBER 2",
-        description: "Description for product item number 1",
-        price: 9.99,
-        quantity: 1
-      }
-    ],
+        products: [],
     tax: 5,
     }
   },
@@ -141,7 +126,7 @@ export default {
           "http://localhost:8080/user/deleteFromCart/" +
             this.userID +
             "/" +
-            product.isbn,
+            product.productId,
           {
             method: "delete",
           }
@@ -150,20 +135,17 @@ export default {
         alert("error");
       }
     },
-    async getCart() {
+    async getCart(){
+      this.products = [];
       try {
-        let response = await fetch(
-          "http://localhost:8080/user/getCart/" + this.userID,
-          {
-            method: "get",
-          }
-        )
-          .then(this.checkStatus)
+          let response = await fetch( "http://localhost:8080/user/getCart/" + this.userID , {
+              method: "get", 
+          }).then(this.checkStatus)
           .then(this.parseJSON);
-        console.log(response);
-        this.products =response;
+          console.log(response);
+          this.products = response;
       } catch (error) {
-        alert("error");
+          alert('error');
       }
     },
     incrementQuantity(product) {
@@ -172,7 +154,7 @@ export default {
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          isbn: this.product.isbn,
+          isbn: this.product.productId,
           noOfCopies: product.noOfCopies,
         }),
       });

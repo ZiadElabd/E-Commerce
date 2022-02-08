@@ -34,12 +34,23 @@ export default {
         },
         product(){
             return this.$route.params.product;
-        }
+        },
+        userID(){
+            return this.$store.state.userID;
+        },
     },
     methods: {
         addToCart(){
-
-        },
+            fetch( "http://localhost:8080/user/addToCart/" + this.userID, {
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    productID: this.product.productId,
+                    noOfCopies: 1,
+                }) 
+            })
+            console.log('added to cart');
+        }
     },
     created() {
         console.log("created");

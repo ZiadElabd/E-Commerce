@@ -19,7 +19,7 @@ public class Source {
                     .create()
                     .username("sql11471271")
                     .password("cTemhzD67v")
-                    .url("jdbc:mysql://sql4.freemysqlhosting.net:3306/sql11471271")
+                    .url("jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11471271")
                     .driverClassName("com.mysql.cj.jdbc.Driver")
                     .build();
         }

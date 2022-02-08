@@ -1,13 +1,22 @@
 package software.project.backend.Model;
 
 public class Cart implements Imodel {
+	    private int productID;
 	    private String name;
 	    private String description;
 	    private double price;
 	    private int noOfCopies;
 	    private String image;
 
-	    public String getName() {
+	public int getProductID() {
+		return productID;
+	}
+
+	public void setProductID(int productID) {
+		this.productID = productID;
+	}
+
+	public String getName() {
 	        return name;
 	    }
 

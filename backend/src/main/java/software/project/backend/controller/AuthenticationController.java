@@ -33,4 +33,9 @@ public class AuthenticationController {
         System.out.println(user.toString());
         return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
     }
+    @DeleteMapping("/logout/{ID}")
+    public ResponseEntity<Boolean> logout(@PathVariable("ID") String ID){
+        if (service.logout(ID)) return  new ResponseEntity<>(true, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
+    }
 }

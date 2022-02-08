@@ -1,6 +1,6 @@
 package software.project.backend.Model;
 
-public class order {
+public class order implements Imodel{
     private int orderID;
     private double totalPrice;
     private int numOfItems;

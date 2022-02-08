@@ -47,6 +47,8 @@ public class AuthenticationService {
         return object;
     }
     public boolean logout(String sessionID){
-       return trackingSystem.deleteOnlineUser(sessionID);
+        String temp=trackingSystem.checkAcess(sessionID);
+        if(temp==null) return false;
+        return trackingSystem.deleteOnlineUser(sessionID);
     }
 }

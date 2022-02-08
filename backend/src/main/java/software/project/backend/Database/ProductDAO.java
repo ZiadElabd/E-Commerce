@@ -141,6 +141,20 @@ public class ProductDAO {
 	public List<order> getOrders() {
 		return jdbcTemplate.query(Commands.getOrders(), new BeanPropertyRowMapper(order.class));
 	}
+	
+	public boolean insertOrder(order o) {
+
+		int result = jdbcTemplate.update(Commands.INSERT_ORDER(),
+				o.getNumOfItems(),
+				o.getDate(),
+				o.getTotalPrice());
+
+		if (result > 0) {
+			System.out.println("A new product has been inserted.");
+			return true ;
+		}
+		return false ;
+	}
 
 	
 	

@@ -104,6 +104,12 @@ public class Commands {
     public static String getOrders() {
         return " SELECT * from Orders";
     }
+    
+    public static String INSERT_ORDER(){
+        return "INSERT INTO ORDERS " +
+                "(noOfItems, date, totalPrice) " +
+                "VALUES (?, ?, ?)";
+    }
 
 
 }

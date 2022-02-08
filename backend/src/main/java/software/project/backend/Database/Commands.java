@@ -100,6 +100,10 @@ public class Commands {
     public static String clearCart(){
         return "DELETE FROM CART WHERE userName = ?; ";
     }
+    
+    public static String getOrders() {
+        return " SELECT * from Orders";
+    }
 
 
 }

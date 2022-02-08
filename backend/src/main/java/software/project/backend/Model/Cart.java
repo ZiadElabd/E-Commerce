@@ -4,7 +4,7 @@ public class Cart implements Imodel {
 	    private String name;
 	    private String description;
 	    private double price;
-	    private int quantity;
+	    private int noOfCopies;
 	    private String image;
 
 	    public String getName() {
@@ -32,11 +32,11 @@ public class Cart implements Imodel {
 	    }
 
 	    public int getQuantity() {
-	        return quantity;
+	        return noOfCopies;
 	    }
 
 	    public void setQuantity(int quantity) {
-	        this.quantity = quantity;
+	        this.noOfCopies = quantity;
 	    }
 
 	

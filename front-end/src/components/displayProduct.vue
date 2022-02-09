@@ -50,6 +50,8 @@ export default {
                 }) 
             })
             console.log('added to cart');
+            alert('added to cart');
+             this.$router.push({ name: "Products"});
         }
     },
     created() {

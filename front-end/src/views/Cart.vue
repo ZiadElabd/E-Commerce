@@ -1,80 +1,98 @@
 <template>
   <div>
     <Navbar />
-      <div class="shopping-cart">
-        <div id="app">
+    <div class="shopping-cart">
+      <div id="app">
+        <!-- Product List -->
+        <section class="container">
+          <div v-if="products.length > 0">
+            <ul class="products">
+              <li class="row" v-for="(product, index) in products" :key="index">
+                <div class="col left">
+                  <div class="thumbnail">
+                    <a href="#">
+                      <img :src="product.image" :alt="product.name" />
+                    </a>
+                  </div>
+                  <div class="detail">
+                    <div class="name">
+                      <a href="#">{{ product.name }}</a>
+                    </div>
+                    <div class="description">{{ product.description }}</div>
+                    <div class="price">{{ product.price }}</div>
+                  </div>
+                </div>
 
-  <!-- Product List -->
-  <section class="container">
-    <div v-if="products.length > 0">
-      <ul class="products">
-      <li class="row" v-for="(product, index) in products" :key="index">
-        <div class="col left">
-          <div class="thumbnail">
-            <a href="#">
-              <img :src="product.image" :alt="product.name" />
-            </a>
-          </div>
-          <div class="detail">
-            <div class="name"><a href="#">{{ product.name }}</a></div>
-            <div class="description">{{ product.description }}</div>
-            <div class="price">{{ product.price  }}</div>
-          </div>
-        </div>
+                <div class="col right">
+                  <div class="quantity">
+                    <input
+                      type="number"
+                      class="quantity"
+                      step="1"
+                      v-model="product.noOfCopies"
+                      @blur="checkQuantity(index, $event)"
+                    />
+                  </div>
 
-        <div class="col right">
-          <div class="quantity">
-            <input type="number" class="quantity" step="1" v-model="product.noOfCopies" @blur="checkQuantity(index, $event)" />
+                  <div class="remove">
+                    <span
+                      variant="danger"
+                      @click="deleteFromCart(product, index)"
+                    >
+                      <b-button>remove</b-button></span
+                    >
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
-          
-          <div class="remove">
-            <span  variant="danger" @click="deleteFromCart(product)">  <b-button>remove</b-button></span>
+          <div v-else class="empty-product">
+            <h3>There are no products in your cart.</h3>
+            <button>Shopping now</button>
           </div>
-        </div>
-      </li>
-    </ul>
-    </div>
-    <div v-else class="empty-product">
-      <h3>There are no products in your cart.</h3>
-      <button>Shopping now</button>
-    </div>
-  </section>
-  <!-- End Product List -->
-  
-  <!-- Summary -->
-  <section class="container" v-if="products.length > 0">
+        </section>
+        <!-- End Product List -->
 
-    <div class="summary">
-      <ul>
-        <li>Subtotal <span>{{ subTotal | currencyFormatted }}</span></li>
-        <li v-if="discount > 0">Discount <span>{{ discountPrice | currencyFormatted }}</span></li>
-        <li>Tax <span>{{ tax | currencyFormatted }}</span></li>
-        <li class="total">Total <span>{{ totalPrice | currencyFormatted }}</span></li>
-      </ul>
-    </div>
+        <!-- Summary -->
+        <section class="container" v-if="products.length > 0">
+          <div class="summary">
+            <ul>
+              <li>
+                Subtotal <span>{{ subTotal | currencyFormatted }}</span>
+              </li>
+              <li v-if="discount > 0">
+                Discount <span>{{ discountPrice | currencyFormatted }}</span>
+              </li>
+              <li>
+                Tax <span>{{ tax | currencyFormatted }}</span>
+              </li>
+              <li class="total">
+                Total <span>{{ totalPrice | currencyFormatted }}</span>
+              </li>
+            </ul>
+          </div>
 
-    <div class="checkout">
-      <button type="button">Check Out</button>
-    </div>
-  </section>
-  <!-- End Summary -->
-</div>
+          <div class="checkout">
+            <button type="button" @click="checkOut">Check Out</button>
+          </div>
+        </section>
+        <!-- End Summary -->
       </div>
     </div>
+  </div>
 </template>
 <script>
 import Navbar from "../components/nbar.vue";
 
 export default {
-  components:{
-        Navbar
-    },
+  components: {
+    Navbar,
+  },
   data() {
-    
-    return{
-        products: [],
-    tax: 5,
-    }
+    return {
+      products: [],
+      tax: 5,
+    };
   },
   mounted: {},
   computed: {
@@ -87,16 +105,33 @@ export default {
     userID() {
       return this.$store.state.userID;
     },
+    numOfItems() {
+      var cnt = 0;
+      for (var i = 0; i < this.products.length; i++) {
+        cnt = parseInt(cnt, 10) + parseInt(this.products[i].noOfCopies, 10);
+      }
+      return cnt;
+    },
+    totalPrice() {
+      var price = 0;
+      for (var i = 0; i < this.products.length; i++) {
+        price =
+          parseInt(price, 10) +
+          parseInt(this.products[i].noOfCopies, 10) *
+            parseInt(this.products[i].price, 10);
+      }
+      return price;
+    },
   },
   methods: {
-    checkQuantity: function(i,e){
-      console.log("bluuuuuur" + i + e) ;
+    checkQuantity: function(i, e) {
+      console.log("bluuuuuur" + i + e);
       this.updateQuantity(this.products[i]);
     },
-    parseJSON: function (resp) {
+    parseJSON: function(resp) {
       return resp.json();
     },
-    checkStatus: function (resp) {
+    checkStatus: function(resp) {
       console.log("status");
       console.log(resp);
       if (resp.status >= 200 && resp.status < 300) {
@@ -110,24 +145,21 @@ export default {
     },
     deleteCart() {
       try {
-        fetch(
-          "http://localhost:8080/user/deleteCart/" + this.userID,
-          {
-            method: "delete",
-          }
-        );
+        fetch("http://localhost:8080/user/deleteCart/" + this.userID, {
+          method: "delete",
+        });
       } catch (error) {
         alert("error");
       }
       this.products = [];
     },
-    deleteFromCart(product) {
+    deleteFromCart(product, index) {
       try {
         fetch(
           "http://localhost:8080/user/deleteFromCart/" +
             this.userID +
             "/" +
-            product.productId,
+            product.productID,
           {
             method: "delete",
           }
@@ -135,18 +167,25 @@ export default {
       } catch (error) {
         alert("error");
       }
+      if (index > -1) {
+        this.products.splice(index, 1);
+      }
     },
-    async getCart(){
+    async getCart() {
       this.products = [];
       try {
-          let response = await fetch( "http://localhost:8080/user/getCart/" + this.userID , {
-              method: "get", 
-          }).then(this.checkStatus)
+        let response = await fetch(
+          "http://localhost:8080/user/getCart/" + this.userID,
+          {
+            method: "get",
+          }
+        )
+          .then(this.checkStatus)
           .then(this.parseJSON);
-          console.log(response);
-          this.products = response;
+        console.log(response);
+        this.products = response;
       } catch (error) {
-          alert('error');
+        alert("error");
       }
     },
     updateQuantity(product) {
@@ -155,20 +194,37 @@ export default {
         method: "put",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          productID: product.productId,
+          productID: product.productID,
           noOfCopies: product.noOfCopies,
         }),
       });
+    },
+    checkOut() {
+      console.log(this.numOfItems);
+      console.log(this.totalPrice);
+
+      fetch("http://localhost:8080/user/addOrder/" + this.userID, {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          numOfItems: this.numOfItems,
+          totalPrice: this.totalPrice,
+        }),
+      });
+
+      this.deleteCart();
+
+      alert("Transaction Completed\n");
+      this.$router.push({ name: "Products" });
     },
   },
   created() {
     this.getCart();
   },
 };
-
 </script>
 <style scoped>
-.shopping-cart{
+.shopping-cart {
   margin-top: 100px;
 }
 * {
@@ -257,7 +313,6 @@ input {
   overflow: auto;
 }
 
-
 /* --- PRODUCT LIST --- */
 .products {
   border-top: 1px solid #ddd;
@@ -315,8 +370,6 @@ input {
   text-align: center;
 }
 
-
-
 .quantity > input {
   display: inline-block;
   width: 60px;
@@ -347,7 +400,6 @@ input {
 }
 
 /* --- SUMMARY --- */
-
 
 .summary {
   font-size: 1.2rem;
@@ -390,7 +442,6 @@ input {
   background-color: #e14646;
   border: 0;
 }
-
 
 /* --- SMALL SCREEN --- */
 @media all and (max-width: 599px) {
@@ -448,9 +499,4 @@ input {
     text-align: right;
   }
 }
-
-
-
-
-
 </style>

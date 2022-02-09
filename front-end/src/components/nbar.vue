@@ -31,8 +31,9 @@
             <template #button-content>
                   <em><font-awesome-icon icon="cog" /></em>
             </template>
+            <b-dropdown-item to="/OrderPage">Orders</b-dropdown-item>
             <b-dropdown-item to="/Settings">Settings</b-dropdown-item>
-                <b-dropdown-item to="/">Log Out</b-dropdown-item>
+                <b-dropdown-item @click="logOut" >Log Out</b-dropdown-item>
           </b-dropdown>
       </div>
      </div>
@@ -46,11 +47,24 @@ export default {
   computed: {
     isAdmin(){
       return this.$store.state.role;
-    }
+    },
+    userID(){
+        return this.$store.state.userID;
+    },
   },
   methods:{
     toCartPage(){
       this.$router.push({ name: "Cart" })
+    },
+    logOut(){
+      fetch(
+        "http://localhost:8080/logout/" +
+          this.userID,
+        {
+          method: "delete",
+        }
+      );
+      this.$router.push({ name: "SignIn" })
     },
     getProductsEvent(category){
       console.log(category + ' in nav bar');

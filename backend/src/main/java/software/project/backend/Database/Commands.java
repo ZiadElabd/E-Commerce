@@ -90,7 +90,7 @@ public class Commands {
     }
 
     public static String updateCart() {
-        return "UPDATE Cart AS C SET C.noOfCopies = ? WHERE C.userName = ? AND C.productId = ? ";
+        return "UPDATE CART AS C SET C.noOfCopies = ? WHERE C.userName = ? AND C.productId = ? ";
     }
     
     public static String removeFromCart(){
@@ -106,8 +106,8 @@ public class Commands {
     }
     
     public static String INSERT_ORDER(){
-        return "INSERT INTO ORDERS " +
-                "(noOfItems, date, totalPrice) " +
+        return "INSERT INTO Orders " +
+                "(noOfItems, date, total_price) " +
                 "VALUES (?, ?, ?)";
     }
 

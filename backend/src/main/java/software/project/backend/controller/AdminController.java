@@ -95,6 +95,7 @@ public class AdminController {
     }
     @GetMapping("/getOrders/{ID}")
     public ResponseEntity<List<order>> getOrders(@PathVariable("ID") String sessionID){
+        System.out.println(sessionID);
         List<order> orders=service.getAllorders(sessionID);
         if (orders!=null) return  new ResponseEntity<>(orders, HttpStatus.ACCEPTED);
         return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);

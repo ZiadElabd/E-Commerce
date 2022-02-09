@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import software.project.backend.Model.Product;
 import software.project.backend.Model.User;
+import software.project.backend.Model.order;
 import software.project.backend.sercuirty.Singelton;
 import software.project.backend.service.adminService;
 
@@ -16,8 +17,7 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
     private adminService service=new adminService();
-    private Singelton trackingSystem=Singelton.getInstance();
-    @PostMapping("/addProduct/{ID}")
+       @PostMapping("/addProduct/{ID}")
     public ResponseEntity<Boolean> addProductController(@RequestBody String temp,
                                                         @PathVariable("ID") String seesionID){
         System.out.println(temp);
@@ -92,6 +92,13 @@ public class AdminController {
         System.out.println(temp);
         if(service.changePassword(sessionID,temp)) return  new ResponseEntity<>(true, HttpStatus.ACCEPTED);
         return new ResponseEntity<>(false, HttpStatus.FORBIDDEN);
+    }
+    @GetMapping("/getOrders/{ID}")
+    public ResponseEntity<List<order>> getOrders(@PathVariable("ID") String sessionID){
+        List<order> orders=service.getAllorders(sessionID);
+        if (orders!=null) return  new ResponseEntity<>(orders, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+
     }
 
 

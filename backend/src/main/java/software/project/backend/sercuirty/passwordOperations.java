@@ -6,7 +6,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 public class passwordOperations {
-    private String passwordHashig;
     public String passswordToHash(String pass){
             return get_HashedPassword(pass);
     }

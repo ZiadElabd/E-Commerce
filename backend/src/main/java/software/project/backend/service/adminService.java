@@ -9,6 +9,7 @@ import software.project.backend.Database.UserDAO;
 import software.project.backend.Model.Product;
 import software.project.backend.Model.User;
 import software.project.backend.Model.builder.Director;
+import software.project.backend.Model.order;
 import software.project.backend.sercuirty.Singelton;
 import software.project.backend.sercuirty.passwordOperations;
 
@@ -96,6 +97,11 @@ public class adminService {
         }
         if(userOperation.checkSignIn(userName,oldPassword)==null) return false;
         return userOperation.changePassword(userName,newPassword);
+    }
+    public List<order> getAllorders(String sessionID){
+        String userName=trackingSystem.checkAcess(sessionID);
+        if (userName==null) return null;
+        return productOperation.getOrders();
     }
 
 

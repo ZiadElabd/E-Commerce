@@ -53,11 +53,7 @@ CREATE TABLE Orders (
     total_price double  NOT NULL,
     noOfItems INTEGER NOT NULL,
     date VARCHAR(30) NOT NULL,
-    PRIMARY KEY (orderId),
-    FOREIGN KEY (userName)
-        REFERENCES USER (userName)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
+    PRIMARY KEY (orderId)
 );
             
 INSERT INTO CATEGORY 

@@ -3,7 +3,7 @@ package software.project.backend.Model;
 public class order implements Imodel{
     private int orderID;
     private double totalPrice;
-    private int numOfItems;
+    private int noOfItems;
     private String date;
 
     public int getOrderID() {
@@ -22,12 +22,12 @@ public class order implements Imodel{
         this.totalPrice = totalPrice;
     }
 
-    public int getNumOfItems() {
-        return numOfItems;
+    public int getNoOfItems() {
+        return noOfItems;
     }
 
     public void setNumOfItems(int numOfItems) {
-        this.numOfItems = numOfItems;
+        this.noOfItems = numOfItems;
     }
 
     public String getDate() {

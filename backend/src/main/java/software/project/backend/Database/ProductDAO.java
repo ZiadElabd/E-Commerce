@@ -145,7 +145,7 @@ public class ProductDAO {
 	public boolean insertOrder(order o) {
 
 		int result = jdbcTemplate.update(Commands.INSERT_ORDER(),
-				o.getNumOfItems(),
+				o.getNoOfItems(),
 				o.getDate(),
 				o.getTotalPrice());
 

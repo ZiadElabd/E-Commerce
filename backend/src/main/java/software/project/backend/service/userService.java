@@ -89,7 +89,6 @@ public class userService {
        order order=new order();
        try {
            JSONObject obj = new JSONObject(dataSent);
-           order.setOrderID(obj.getInt("orderID"));
            order.setTotalPrice(obj.getDouble("totalPrice"));
            order.setNumOfItems(obj.getInt("numOfItems"));
            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");

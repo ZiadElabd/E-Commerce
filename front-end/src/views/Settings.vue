@@ -22,14 +22,14 @@
               v-model="allSettings.lastName"
             />
           </div>
-         
+
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <input
               type="text"
               class="form-control"
               id="username"
-               v-model="allSettings.userName"
+              v-model="allSettings.userName"
               disabled
             />
           </div>
@@ -43,7 +43,6 @@
             />
           </div>
 
-
           <div class="mb-3">
             <label for="Phone" class="form-label">Phone</label>
             <input
@@ -55,35 +54,49 @@
           </div>
 
           <div id="contacts">
-  <table>
-    <thead>
-      <tr>
-        <th v-if="role === 1" class="sort" data-sort="name">Admins</th>
-      </tr>
-    </thead>
-    <tbody v-if="role === 1" class="list">
-      <tr v-for="admin in admins" :key="admin">
-        <td class="name">{{admin}}</td>
-        <td @click="deleteAdmin(admin)" class="remove" ><i class="fa fa-trash" aria-hidden="true"></i></td>
-      </tr>
-    </tbody>
-  </table>
- 
-</div>
+            <table>
+              <thead>
+                <tr>
+                  <th v-if="role === 1" class="sort" data-sort="name">
+                    Admins
+                  </th>
+                </tr>
+              </thead>
+              <tbody v-if="role === 1" class="list">
+                <tr v-for="admin in admins" :key="admin">
+                  <td class="name">{{ admin }}</td>
+                  <td @click="deleteAdmin(admin)" class="remove">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <div class="save_and_cancel">
-           <div>
-              <button type="button" class="btn btn-primary"  @click.prevent="saveSetting">Save</button>
-            <button type="button" class="btn btn-outline-dark" @click="cancel">Cancel</button>
-           </div>
-           <div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-primary"
+                @click.prevent="saveSetting"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-dark"
+                @click="cancel"
+              >
+                Cancel
+              </button>
+            </div>
+            <div>
               <router-link to="/ChangePassword">Change Password</router-link>
               <router-link v-if="role === 1" to="/admins">Admins</router-link>
-           </div>
+            </div>
           </div>
         </form>
       </div>
     </div>
-    
   </div>
 </template>
 
@@ -91,99 +104,110 @@
 import Navbar from "../components/nbar.vue";
 export default {
   name: "Settings",
-  isAdmin: true ,
+  isAdmin: true,
   components: {
     Navbar,
   },
   data() {
     return {
-      newAdmin:'',
+      newAdmin: "",
       allSettings: {
-        firstName:"",
-        lastName:"", 
+        firstName: "",
+        lastName: "",
         address: "",
         phone: "",
-        userName: ""
+        userName: "",
       },
       admins: [],
     };
   },
-  computed:{
-    userID(){
+  computed: {
+    userID() {
       return this.$store.state.userID;
     },
-    userName(){
+    userName() {
       return this.$store.state.userName;
     },
-    role(){
+    role() {
       return this.$store.state.role;
     },
   },
   methods: {
-    parseJSON: function (resp) {
-        return resp.json();
+    parseJSON: function(resp) {
+      return resp.json();
     },
-    checkStatus: function (resp) {
-        console.log('status');
-        console.log(resp);
-        if (resp.status >= 200 && resp.status < 300) {
-            console.log('good status');
-            return resp;
-        }
-        console.log('bad status');
-        return this.parseJSON(resp).then((resp) => {
-            throw resp;
-        });
+    checkStatus: function(resp) {
+      console.log("status");
+      console.log(resp);
+      if (resp.status >= 200 && resp.status < 300) {
+        console.log("good status");
+        return resp;
+      }
+      console.log("bad status");
+      return this.parseJSON(resp).then((resp) => {
+        throw resp;
+      });
     },
-    async getSetting(){
+    async getSetting() {
       try {
-          let response = await fetch( "http://localhost:8080/admin/getSetting/" + this.userID, {
-              method: "get", 
-          }).then(this.checkStatus)
+        let response = await fetch(
+          "http://localhost:8080/admin/getSetting/" + this.userID,
+          {
+            method: "get",
+          }
+        )
+          .then(this.checkStatus)
           .then(this.parseJSON);
-          console.log(response);
-          this.allSettings = response;
+        console.log(response);
+        this.allSettings = response;
       } catch (error) {
-          alert('error');
+        alert("error");
       }
     },
-    async getAdmins(){
+    async getAdmins() {
       try {
-          let response = await fetch( "http://localhost:8080/admin/getAdmins/" + this.userID, {
-              method: "get", 
-          }).then(this.checkStatus)
+        let response = await fetch(
+          "http://localhost:8080/admin/getAdmins/" + this.userID,
+          {
+            method: "get",
+          }
+        )
+          .then(this.checkStatus)
           .then(this.parseJSON);
-          console.log(response);
-          this.admins = response;
-          console.log(this.admins);
+        console.log(response);
+        this.admins = response;
+        console.log(this.admins);
       } catch (error) {
-          alert('error');
+        alert("error");
       }
     },
-    async deleteAdmin(userName){
-      this.admins = this.admins.filter(item => item !== userName);
+    async deleteAdmin(userName) {
+      this.admins = this.admins.filter((item) => item !== userName);
       try {
-          fetch( "http://localhost:8080/admin/deleteAdmin/" + this.userID + '/' + userName, {
-              method: "delete", 
-          })
+        fetch(
+          "http://localhost:8080/admin/deleteAdmin/" +
+            this.userID +
+            "/" +
+            userName,
+          {
+            method: "delete",
+          }
+        );
       } catch (error) {
-          alert('error');
+        alert("error");
       }
     },
-    saveSetting(){
-      fetch(
-        "http://localhost:8080/admin/updateAdmin/" + this.userID,
-        {
-          method: "put",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(this.allSettings),
-        }
-      );
-      this.$router.push({ name: "Products"});
+    saveSetting() {
+      fetch("http://localhost:8080/admin/updateAdmin/" + this.userID, {
+        method: "put",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(this.allSettings),
+      });
+      this.$router.push({ name: "Products" });
     },
-    cancel(){
-      this.$router.push({ name: "Products"});
-    }
+    cancel() {
+      this.$router.push({ name: "Products" });
+    },
   },
   created() {
     this.getSetting();
@@ -193,7 +217,7 @@ export default {
 </script>
 <style scoped>
 .Settings {
-  background-color: #DDD;
+  background-color: #ddd;
   border-radius: 10px;
   padding: 20px;
   top: 50px;
@@ -239,18 +263,17 @@ select {
 .save_and_cancel a {
   display: block;
 }
-i{
+i {
   cursor: pointer;
 }
-td{
+td {
   width: 300px;
 }
-td input{
+td input {
   width: 200px;
 }
 .add[data-v-53cc84dd] {
-    display: block;
-    margin-left: 80px;
+  display: block;
+  margin-left: 80px;
 }
-
 </style>

@@ -144,7 +144,7 @@ export default {
           console.log(response);
           this.products = response;
       } catch (error) {
-          alert('error');
+          console.log('error');
       }
     }
   },

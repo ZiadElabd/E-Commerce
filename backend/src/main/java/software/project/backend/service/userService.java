@@ -2,17 +2,11 @@ package software.project.backend.service;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import software.project.backend.Database.ProductDAO;
-import software.project.backend.Database.UserDAO;
 import software.project.backend.Model.Cart;
 import software.project.backend.Model.Product;
-import software.project.backend.Model.User;
-import software.project.backend.Model.builder.Director;
 import software.project.backend.Model.order;
 import software.project.backend.sercuirty.Singelton;
-import software.project.backend.sercuirty.passwordOperations;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -90,7 +84,7 @@ public class userService {
        try {
            JSONObject obj = new JSONObject(dataSent);
            order.setTotalPrice(obj.getDouble("totalPrice"));
-           order.setNumOfItems(obj.getInt("numOfItems"));
+           order.setNoOfItems(obj.getInt("numOfItems"));
            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
            LocalDateTime now = LocalDateTime.now();
            order.setDate(dtf.format(now));

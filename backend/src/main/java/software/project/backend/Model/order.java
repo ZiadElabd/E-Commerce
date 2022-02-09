@@ -26,7 +26,7 @@ public class order implements Imodel{
         return noOfItems;
     }
 
-    public void setNumOfItems(int numOfItems) {
+    public void setNoOfItems(int numOfItems) {
         this.noOfItems = numOfItems;
     }
 

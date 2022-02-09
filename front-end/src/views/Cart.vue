@@ -48,7 +48,7 @@
           </div>
           <div v-else class="empty-product">
             <h3>There are no products in your cart.</h3>
-            <button>Shopping now</button>
+            <button @click="toProductPage">Shopping now</button>
           </div>
         </section>
         <!-- End Product List -->
@@ -57,15 +57,6 @@
         <section class="container" v-if="products.length > 0">
           <div class="summary">
             <ul>
-              <li>
-                Subtotal <span>{{ subTotal | currencyFormatted }}</span>
-              </li>
-              <li v-if="discount > 0">
-                Discount <span>{{ discountPrice | currencyFormatted }}</span>
-              </li>
-              <li>
-                Tax <span>{{ tax | currencyFormatted }}</span>
-              </li>
               <li class="total">
                 Total <span>{{ totalPrice | currencyFormatted }}</span>
               </li>
@@ -124,6 +115,9 @@ export default {
     },
   },
   methods: {
+    toProductPage() {
+      this.$router.push({ name: "Products" });
+    },
     checkQuantity: function(i, e) {
       console.log("bluuuuuur" + i + e);
       this.updateQuantity(this.products[i]);

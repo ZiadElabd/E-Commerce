@@ -74,7 +74,7 @@ public class Commands {
     }
     
     public static String searchWithName(String text) {
-        return "SELECT * FROM product AS B WHERE B.name LIKE  '%" + text + "%' AND B.categoryName=? ";
+        return "SELECT * FROM PRODUCT AS B WHERE B.name LIKE  '%" + text + "%' AND B.categoryName=? ";
     }
     
     public static String getCart() {

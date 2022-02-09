@@ -60,7 +60,6 @@
                     }).then(this.checkStatus)
                     .then(this.parseJSON);
 
-                    //console.log(response);
                     let p = JSON.parse(response);
                     console.log(p.role + " "  + p.sessionID);
 
@@ -69,8 +68,6 @@
                         _name: this.form.userName,
                         _role: p.role
                     });
-                    console.log("vvvvvvvv");
-                    console.log("user name that stored in the Vuex" + this.$store.state.userID);
                     return {
                         valid: true,
                         role: p.role
@@ -85,10 +82,7 @@
             async SignIn(){
                 const state = await this.login();
                 if (state.valid) {
-                    if(state.role)
-                        this.$router.push({ name: "Products"});
-                    else
-                        this.$router.push({ name: "Products"});
+                    this.$router.push({ name: "Products"});
                 } else {
                     alert("Please try agian, email or password is wrong :(");
                 }

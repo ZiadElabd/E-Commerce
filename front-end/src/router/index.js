@@ -1,10 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Admins from '../views/Admins.vue'
-import Notifications from '../views/Notifications.vue'
 import Settings from '../views/Settings.vue'
 import OrderPage from '../views/OrderPage.vue'
-import CartPage from '../views/CartPage.vue'
 import SignIn from '../components/SignIn.vue'
 import SignUp from '../components/SignUp.vue'
 import ChangePassword from '../components/ChangePassword.vue'
@@ -65,11 +63,6 @@ const routes = [
         component: ChangePassword
     },
     {
-        path: '/Notifications',
-        name: 'Notifications',
-        component: Notifications
-    },
-    {
         path: '/Settings',
         name: 'Settings',
         component: Settings
@@ -78,11 +71,6 @@ const routes = [
         path: '/OrderPage',
         name: 'OrderPage',
         component: OrderPage
-    },
-    {
-        path: '/CartPage',
-        name: 'CartPage',
-        component: CartPage
     },
 
 ]

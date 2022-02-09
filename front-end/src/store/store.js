@@ -42,27 +42,3 @@ export const store = new Vuex.Store({
     },
     
 });
-
-/*
-const getDefaultState = () => {
-    return {
-    }
-};
-function parseJSON(resp) {
-    return resp.json();
-}
-function parseText(resp) {
-    return resp.text();
-}
-function checkStatus(resp) {
-    console.log('status');
-    if (resp.status >= 200 && resp.status < 300) {
-        console.log('good status');
-        return resp;
-    }
-    console.log('bad status');
-    return this.parseJSON(resp).then((resp) => {
-        throw resp;
-    });
-}
-*/

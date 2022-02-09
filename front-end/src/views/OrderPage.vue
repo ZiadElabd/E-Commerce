@@ -4,36 +4,36 @@
     <div class="container">
       <div v-if="orders.length > 0">
         <div class="table">
-        <div class="layout-inline row th">
-          <div class="col col-pro">Order ID</div>
-          <div class="col col-qty align-center">Quantity</div>
-          <div class="col col-price align-center">Total Price</div>
-          <div class="col">Status</div>
-        </div>
+          <div class="layout-inline row th">
+            <div class="col col-pro">Order ID</div>
+            <div class="col col-qty align-center">Quantity</div>
+            <div class="col col-price align-center">Total Price</div>
+            <div class="col">Status</div>
+          </div>
 
-        <div
-          class="layout-inline row"
-          v-for="order in orders"
-          :key="order.OrderId"
-        >
-          <div class="col col-pro layout-inline">
-            <p>{{ order.orderID }}</p>
-          </div>
-          <div class="col col-qty layout-inline">
-            <p>{{ order.numOfItems }}</p>
-          </div>
-          <div class="col col-price col-numeric align-center ">
-            <p>{{ order.totalPrice }}$</p>
-          </div>
-          <div class="col col-total col-numeric">
-            <p>{{ order.date }}</p>
+          <div
+            class="layout-inline row"
+            v-for="order in orders"
+            :key="order.OrderId"
+          >
+            <div class="col col-pro layout-inline">
+              <p>{{ order.orderID }}</p>
+            </div>
+            <div class="col col-qty layout-inline">
+              <p>{{ order.noOfItems }}</p>
+            </div>
+            <div class="col col-price col-numeric align-center ">
+              <p>{{ order.totalPrice }}$</p>
+            </div>
+            <div class="col col-total col-numeric">
+              <p>{{ order.date }}</p>
+            </div>
           </div>
         </div>
       </div>
+      <div v-else class="empty-product">
+        <h3>There are no orders Yet</h3>
       </div>
-        <div v-else class="empty-product">
-          <h3>There are no orders Yet</h3>
-        </div>
     </div>
   </div>
 </template>

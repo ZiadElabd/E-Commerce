@@ -32,7 +32,7 @@ public class UserDAO_Test {
     @Test
     void insertUserTest() {
         String dataSent = "{\n" +
-                "   \"userName\":\"ziadElabd\",\n" +
+                "   \"userName\":\"ziadElabdd\",\n" +
                 "    \"firstName\":\"ziad\",\n" +
                 "    \"lastName\":\"elabd\",\n" +
                 "    \"password\":\"123\",\n" +
@@ -46,7 +46,7 @@ public class UserDAO_Test {
     @Order(3)
     @Test
     void isUserNameExistTest() {
-        assertTrue(userDAO.isUserNameExist("ziadElabd"));
+        assertTrue(userDAO.isUserNameExist("ziadElabdd"));
     }
 
     @Order(4)
@@ -56,18 +56,16 @@ public class UserDAO_Test {
         String password = passwordOPS.passswordToHash("123456");
         User user = userDAO.checkSignIn(userName, password);
         assertEquals(user.getRole(),1);
-        assertNull(user.getUserName());
         assertNull(user.getPassword());
     }
 
     @Order(4)
     @Test
     void checkSignInTest2() {
-        String userName = "ziadElabd";
+        String userName = "ziadElabdd";
         String password = passwordOPS.passswordToHash("123");
         User user = userDAO.checkSignIn(userName, password);
         assertEquals(user.getRole(),0);
-        assertNull(user.getUserName());
         assertNull(user.getPassword());
     }
 
@@ -75,12 +73,11 @@ public class UserDAO_Test {
     @Order(5)
     @Test
     void changePasswordTest1() {
-        String userName = "ziadElabd";
+        String userName = "ziadElabdd";
         String password = passwordOPS.passswordToHash("123456");
         assertTrue(userDAO.changePassword(userName, password));
         User user = userDAO.checkSignIn(userName, password);
         assertEquals(user.getRole(),0);
-        assertNull(user.getUserName());
         assertNull(user.getPassword());
     }
 
@@ -93,16 +90,11 @@ public class UserDAO_Test {
         }
     }
 
-//    @Test
-//    void deleteAdminTest(){
-//        assertTrue(userDAO.deleteAdmin("ziad"));
-//    }
-
     @Order(7)
     @Test
     void updateUserSettingsTest(){
         String dataSent = "{\n" +
-                "   \"userName\":\"ziadElabd\",\n" +
+                "   \"userName\":\"ziadElabdd\",\n" +
                 "    \"firstName\":\"zezo\",\n" +
                 "    \"lastName\":\"elabd\",\n" +
                 "    \"password\":\"123\",\n" +
@@ -110,7 +102,7 @@ public class UserDAO_Test {
                 "    \"phone\":\"123456\"\n" +
                 "}";
         User user = (User) director.composeModel("user",dataSent);
-        assertTrue(userDAO.updateUserSettings("ziadElabd", user));
+        assertTrue(userDAO.updateUserSettings("ziadElabdd", user));
     }
 
 }

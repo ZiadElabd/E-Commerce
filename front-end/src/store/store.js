@@ -16,7 +16,7 @@ export const store = new Vuex.Store({
     mutations: {
       initialiseStore(state) {
         if (localStorage.getItem('timestamp')) {
-            if(new Date().getTime() - localStorage.getItem('timestamp')  > 300000){
+            if(new Date().getTime() - localStorage.getItem('timestamp')  > 3000000){
                 state.userID = '';
                 state.userName = '';
                 state.role = '';
